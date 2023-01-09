@@ -1,11 +1,12 @@
 const { heroes } = require('../models');
+const { heroStats } = require('../models');
 const { classes } = require('../models');
 
 class HeroController {
     static async getAllHeroes(req, res) {
         try {
             let result = await heroes.findAll({
-                include: [classes]
+                include: [classes, heroStats]
             });
             res.status(200).json(result);
         } catch (err) {
@@ -13,11 +14,24 @@ class HeroController {
         }
     }
 
-    static async add(req, res) {
+    static async addHero(req, res) {
         try {
             const { name, level, image, classId, partyId } = req.body;
             let result = await heroes.create({
                 name, level, image, classId, partyId
+            });
+            res.status(201).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    // Temp
+    static async addHeroStats(req, res) {
+        try {
+            const { hp, mgc, stam, str, def, int, dex, char, heroId } = req.body;
+            let result = await heroStats.create({
+                hp, mgc, stam, str, def, int, dex, char, heroId
             });
             res.status(201).json(result);
         } catch (err) {

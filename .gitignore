@@ -1,3 +1,7 @@
 # server side
 server/node_modules
 server/package-lock.json
+
+# client side
+client/node_modules
+client/package-lock.json

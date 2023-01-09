@@ -13,4 +13,7 @@ npx sequelize-cli model:generate --name parties --attributes name:string,image:s
 
 table classes
 npx sequelize-cli model:generate --name classes --attributes name:string,image:string
+
+table heroStats
+npx sequelize-cli model:generate --name heroStats --attributes hp:integer,mgc:integer,stam:integer,str:integer,def:integer,int:integer,dex:integer,char:integer,heroId:integer
 ```

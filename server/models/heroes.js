@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      heroes.hasOne(models.heroStats);
       heroes.belongsTo(models.classes);
       heroes.belongsTo(models.parties);
       // define association here
