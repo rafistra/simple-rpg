@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Dashboard = () => {
   return (
     <div>
-        <h1>Dashboard Page</h1>
+      <div className='card'>
+        <div className="card-title"><h1>HAHAHA</h1></div>
+      </div>
     </div>
   )
 }

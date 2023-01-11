@@ -1,0 +1,13 @@
+.stat-body {
+    height: 100vh;
+    margin-left: 20px;
+}
+
+.stat-img {
+    height: 350px;
+    width: 350px;
+}
+
+.row {
+    display: flex;
+}

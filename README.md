@@ -16,4 +16,8 @@ npx sequelize-cli model:generate --name classes --attributes name:string,image:s
 
 table heroStats
 npx sequelize-cli model:generate --name heroStats --attributes hp:integer,mgc:integer,stam:integer,str:integer,def:integer,int:integer,dex:integer,char:integer,heroId:integer
+
+table users
+npx sequelize-cli migration:create --name modify_heroes_add_new_fields
+
 ```

@@ -1,21 +1,33 @@
-import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Dashboard from './pages/Dashboard.jsx';
-import Hero from './pages/Hero.jsx';
-import Class from './pages/Class.jsx';
+import React, { useState, useEffect } from 'react';
+import './styles/App.css';
+import Main from './pages/Main';
+import LoginPage from './pages/Login';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  const [loginStatus, setLoginStatus] = useState(false);
+
+  const loginCbHandler = result => {
+    setLoginStatus(result);
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) {
+      setLoginStatus(true);
+    } else {
+      setLoginStatus(false);
+    }
+
+  }, [loginStatus])
+
   return (
-    <BrowserRouter>
-      <Sidebar>
-        <Routes>
-          <Route path='/' element={<Dashboard></Dashboard>} />
-          <Route path='/heroes' element={<Hero></Hero>} />
-          <Route path='/classes' element={<Class></Class>} />
-        </Routes>
-      </Sidebar>
-    </BrowserRouter>
+    <div>
+      {
+        !loginStatus ? 
+        <LoginPage loginCbHandler={loginCbHandler}></LoginPage> :
+        <Main loginStatus={loginStatus} loginCbHandler={loginCbHandler}></Main>
+      }
+    </div>
   );
 }
 

@@ -1,6 +1,8 @@
 const { heroes } = require('../models');
 const { heroStats } = require('../models');
 const { classes } = require('../models');
+const { encryptPwd, decryptPWd } = require('../helpers/bcrypt');
+const { tokenGenerator, tokenVerifier } = require('../helpers/jsonwebtoken');
 
 class HeroController {
     static async getAllHeroes(req, res) {
@@ -14,11 +16,54 @@ class HeroController {
         }
     }
 
+    static async getHeroById(req, res) {
+        try {
+            const id = Number(req.params.id)
+
+            let result = await heroes.findByPk(id, {
+                include: [classes, heroStats]
+            });
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    static async login(req, res) {
+        try {
+            const { email, password } = req.body;
+            let emailFound = await heroes.findOne({
+                where: { email }
+            });
+            if (emailFound) {
+                if (decryptPWd(password, emailFound.password)) {
+                    let access_token = tokenGenerator(emailFound);
+                    res.status(200).json({
+                        access_token
+                    });
+
+                    let verifyToken = tokenVerifier(access_token);
+                    console.log(verifyToken);
+                } else {
+                    res.status(403).json({
+                        message: "Invalid Password!"
+                    });
+                }
+            } else {
+                res.status(404).json({
+                    message: "User not found!"
+                });
+            }
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
     static async addHero(req, res) {
         try {
-            const { name, level, image, classId, partyId } = req.body;
+            const { name, level, image, classId, partyId, email, password, isAdmin } = req.body;
             let result = await heroes.create({
-                name, level, image, classId, partyId
+                name, level, image, classId, partyId, email, password, isAdmin
             });
             res.status(201).json(result);
         } catch (err) {

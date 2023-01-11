@@ -2,13 +2,12 @@
     text-decoration: none;
 }
 
-.container {
+.main-sidebar {
     display: flex;
 }
 
 main {
     width: 100%;
-    padding: 20px;
 }
 
 .sidebar {
