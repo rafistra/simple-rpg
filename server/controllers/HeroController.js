@@ -1,8 +1,10 @@
-const { heroes } = require('../models');
+const { heroes, sequelize } = require('../models');
 const { heroStats } = require('../models');
 const { classes } = require('../models');
 const { encryptPwd, decryptPWd } = require('../helpers/bcrypt');
 const { tokenGenerator, tokenVerifier } = require('../helpers/jsonwebtoken');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 class HeroController {
     static async getAllHeroes(req, res) {
@@ -61,9 +63,10 @@ class HeroController {
 
     static async addHero(req, res) {
         try {
-            const { name, level, image, classId, partyId, email, password, isAdmin } = req.body;
+            const { name, level, classId, partyId, email, password, isAdmin } = req.body;
+            // const { image } = req.file.filename;
             let result = await heroes.create({
-                name, level, image, classId, partyId, email, password, isAdmin
+                name, level, image: req.file.filename, classId, partyId, email, password, isAdmin
             });
             res.status(201).json(result);
         } catch (err) {
@@ -112,6 +115,35 @@ class HeroController {
                 res.status(404).json({
                     message: `Heroes id ${id} not deleted successfully!`
                 });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    static async search(req, res) {
+        try {
+            const { name } = req.body;
+            const search = String(name).toLowerCase();;
+            const whereClause = {
+                [Op.or]: [
+                    Sequelize.where(
+                        Sequelize.fn('LOWER', Sequelize.col('name')), { [Op.like]: `%${search}%` }
+                    )
+                ]
+            }
+            let result = await heroes.findAll({
+                where: {
+                    [Op.or]: [
+                        Sequelize.where(
+                            Sequelize.fn('LOWER', Sequelize.col('name')), { [Op.like]: `%${search}%` }
+                        ),
+                        Sequelize.where(
+                            Sequelize.fn('LOWER', Sequelize.col('image')), { [Op.like]: `%${search}%` }
+                        ),
+                    ]
+                }
+            })
+            res.status(200).json(result);
         } catch (err) {
             res.status(500).json(err);
         }

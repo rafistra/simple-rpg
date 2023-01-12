@@ -3,6 +3,7 @@
 * {
     margin: 0px;
     padding: 0px;
+    font-family: 'Lora', serif;
 }
 
 :root {
@@ -12,24 +13,35 @@
     --theme-red: #e99185;
 }
 
-.page-title {
-    font-family: 'Lora', serif;
-    font-weight: 600;
-    margin: 10px 0px;
-    padding-left: 20px;
+.content {
+    display: flex;
 }
 
-.page-desc {
+.page-header {
+    padding-top: 20px;
     padding-left: 20px;
+    padding-right: 20px;
+}
+
+.page-action {
+    padding-top: 20px;
 }
 
 .page-body {
-    box-sizing: border-box;
-    height: 100vh;
     padding: 0px 20px;
     margin-left: 20px;
-    background-color: #e99185;
-    border-start-start-radius: 16px;
+    margin-right: 20px;
+    margin-top: 0px;
+    background-color: antiquewhite;
+    border-radius: 16px;
 }
+
+.card-title {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+}
+
+
+
   
   

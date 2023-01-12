@@ -1,0 +1,12 @@
+.buttonA {
+    background-color: brown;
+    color: white;
+    border-radius: 6px;
+    padding: 10px 10px;
+    margin-left: 12px;
+}
+
+.buttonA:hover {
+    color: brown;
+    background-color: antiquewhite;
+}

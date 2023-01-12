@@ -1,4 +1,7 @@
 .navbar {
-    background-color: aqua;
     margin: 0;
+    background-color: antiquewhite;
+    margin: 0px 20px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
 }

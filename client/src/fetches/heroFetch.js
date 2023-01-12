@@ -22,7 +22,7 @@ const getHeroStats = async (id, cb) => {
     try {
         let result = await axios({
             method: 'GET',
-            url: `${URL}/hero-stats/${id}`
+            url: URL + '/hero-stats/' + id
         });
         // const { id, name, level } = result.data;
         // alert(`Id: ${id}, Name: ${name}, Level: ${level}`);
@@ -32,6 +32,44 @@ const getHeroStats = async (id, cb) => {
     }
 }
 
+const searchHero = async (cb) => {
+    try{
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const addHero = async hero => {
+    try {
+        let result = await axios({
+            method: 'POST',
+            url: URL + '/add-hero',
+            data: hero,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': `multipart/form-data`
+            }
+        });
+        // cb(result.data);
+        console.log(result.data);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const removeHero = async id => {
+    try {
+        let result = await axios({
+            method: 'DELETE',
+            url: URL + '/delete-hero/' + id
+        });
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 export {
-    getHeroes, getHeroStats
+    getHeroes, getHeroStats, addHero, removeHero, searchHero
 }

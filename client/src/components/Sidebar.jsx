@@ -4,48 +4,56 @@ import {
     AiFillHome, AiFillFolderOpen
 } from 'react-icons/ai';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { GiBrutalHelm, GiClassicalKnowledge, GiArcTriomphe, GiGuards, GiAbstract076 } from "react-icons/gi";
+import StickyBox from "react-sticky-box";
 
 const Sidebar = ({ children }) => {
-    const [isOpen, setIsOpen] = useState(true);
-    const toggle = () => setIsOpen(!isOpen);
     const menuItem = [
         {
             path: '/',
             name: 'Dahsboard',
-            icon: <AiFillHome />
+            icon: <GiArcTriomphe />
         },
         {
             path: '/heroes',
             name: 'Heroes',
-            icon: <AiFillHome />
+            icon: <GiBrutalHelm />
         },
         {
             path: '/classes',
             name: 'Classes',
-            icon: <AiFillHome />
-        }
+            icon: <GiClassicalKnowledge />
+        },
+        {
+            path: '/n',
+            name: 'Parties',
+            icon: <GiGuards />
+        },
     ]
     return (
         <div className='main-sidebar'>
-            <div style={{ width: isOpen ? '250px' : '50px' }} className="sidebar">
-                <div className="top-section">
-                    <h1 style={{ display: isOpen ? 'block' : 'none' }} className="logo">Logo</h1>
-                    <div style={{ marginLeft: isOpen ? '50px' : '0px' }} className="bars">
-                        <AiFillFolderOpen onClick={toggle} />
+                <div className="sidebar">
+                    <div className="top-section">
+                        <div className="bars">
+                            <GiAbstract076 />
+                        </div>
+                        <h1 className="logo">Navigation</h1>
+                    </div>
+                    <div>
+                        {
+                            menuItem.map((item, index) => (
+                                <NavLink to={item.path} key={index} className='link' activeclassName='active'>
+                                    <div className="icon">{item.icon}</div>
+                                    <div className="link_text">{item.name}</div>
+                                </NavLink>
+                            ))
+                        }
                     </div>
                 </div>
-                {
-                    menuItem.map((item, index) => (
-                        <NavLink to={item.path} key={index} className='link' activeclassName='active'>
-                            <div className="icon">{item.icon}</div>
-                            <div style={{ display: isOpen ? 'block' : 'none' }} className="link_text">{item.name}</div>
-                        </NavLink>
-                    ))
-                }
-            </div>
+
             <main>{children}</main>
         </div>
+
     )
 }
 
