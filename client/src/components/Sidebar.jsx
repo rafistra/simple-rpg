@@ -11,12 +11,17 @@ const Sidebar = ({ children }) => {
     const menuItem = [
         {
             path: '/',
-            name: 'Dahsboard',
+            name: 'The Board',
             icon: <GiArcTriomphe />
         },
         {
+            path: '/quests',
+            name: 'Quests',
+            icon: <GiGuards />
+        },
+        {
             path: '/heroes',
-            name: 'Heroes',
+            name: 'Companions',
             icon: <GiBrutalHelm />
         },
         {
@@ -25,7 +30,7 @@ const Sidebar = ({ children }) => {
             icon: <GiClassicalKnowledge />
         },
         {
-            path: '/n',
+            path: '/parties',
             name: 'Parties',
             icon: <GiGuards />
         },

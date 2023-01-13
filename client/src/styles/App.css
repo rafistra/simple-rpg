@@ -28,7 +28,7 @@
 }
 
 .page-body {
-    padding: 0px 20px;
+    padding: 20px 20px; 
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 0px;
@@ -39,6 +39,24 @@
 .card-title {
     font-family: 'Lora', serif;
     font-weight: 500;
+}
+
+.card-horizontal {
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: antiquewhite;
+    border-radius: 16px;
+    margin-bottom: 50px;
+}
+
+.card-horizontal img {
+    border-bottom-left-radius: 16px;
+    border-top-left-radius: 16px;
+}
+
+.card-horizontal .card-body {
+    margin-top: 20px;
+    margin-left: 16px;
 }
 
 

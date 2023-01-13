@@ -5,10 +5,15 @@ const { upload } = require('../middlewares/multer');
 
 heroRoute.get(
     '/',
+    authentication,
     HeroController.getAllHeroes);
 heroRoute.get(
     '/hero-stats/:id',
     HeroController.getHeroById);
+heroRoute.get(
+    '/hero-player/',
+    authentication,
+    HeroController.getUserHero);
 heroRoute.post(
     '/add-hero',
     upload.single('image'),

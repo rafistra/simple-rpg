@@ -18,6 +18,22 @@ const getHeroes = async cb => {
     }
 }
 
+const getPlayer = async cb => {
+    try {
+        let heroes = await axios({
+            method: 'GET',
+            url: URL + '/hero-player/',
+            headers: {
+                access_token: token
+            }
+        });
+        // console.log(heroes.data)
+        cb(heroes.data);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 const getHeroStats = async (id, cb) => {
     try {
         let result = await axios({
@@ -71,5 +87,5 @@ const removeHero = async id => {
 }
 
 export {
-    getHeroes, getHeroStats, addHero, removeHero, searchHero
+    getHeroes, getHeroStats, addHero, removeHero, searchHero, getPlayer
 }

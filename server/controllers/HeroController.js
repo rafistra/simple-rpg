@@ -10,7 +10,24 @@ class HeroController {
     static async getAllHeroes(req, res) {
         try {
             let result = await heroes.findAll({
-                include: [classes, heroStats]
+                include: [classes, heroStats],
+                where : { isAdmin: { [Op.ne] : true }
+                }
+            });
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    static async getUserHero(req, res) {
+        try {
+            const token = tokenVerifier(req.headers.access_token)
+            const email = token.email;
+
+            let result = await heroes.findAll({
+                include: [classes, heroStats],
+                where: { email }
             });
             res.status(200).json(result);
         } catch (err) {
@@ -34,12 +51,14 @@ class HeroController {
     static async login(req, res) {
         try {
             const { email, password } = req.body;
+
             let emailFound = await heroes.findOne({
                 where: { email }
             });
             if (emailFound) {
                 if (decryptPWd(password, emailFound.password)) {
                     let access_token = tokenGenerator(emailFound);
+                    
                     res.status(200).json({
                         access_token
                     });
@@ -124,13 +143,6 @@ class HeroController {
         try {
             const { name } = req.body;
             const search = String(name).toLowerCase();;
-            const whereClause = {
-                [Op.or]: [
-                    Sequelize.where(
-                        Sequelize.fn('LOWER', Sequelize.col('name')), { [Op.like]: `%${search}%` }
-                    )
-                ]
-            }
             let result = await heroes.findAll({
                 where: {
                     [Op.or]: [
@@ -140,7 +152,8 @@ class HeroController {
                         Sequelize.where(
                             Sequelize.fn('LOWER', Sequelize.col('image')), { [Op.like]: `%${search}%` }
                         ),
-                    ]
+                    ],
+                    isAdmin: { [Op.ne] : true }
                 }
             })
             res.status(200).json(result);
