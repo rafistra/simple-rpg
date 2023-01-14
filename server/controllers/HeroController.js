@@ -5,13 +5,15 @@ const { encryptPwd, decryptPWd } = require('../helpers/bcrypt');
 const { tokenGenerator, tokenVerifier } = require('../helpers/jsonwebtoken');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const fs = require('fs')
 
 class HeroController {
     static async getAllHeroes(req, res) {
         try {
             let result = await heroes.findAll({
                 include: [classes, heroStats],
-                where : { isAdmin: { [Op.ne] : true }
+                where: {
+                    isAdmin: { [Op.ne]: true }
                 }
             });
             res.status(200).json(result);
@@ -58,7 +60,7 @@ class HeroController {
             if (emailFound) {
                 if (decryptPWd(password, emailFound.password)) {
                     let access_token = tokenGenerator(emailFound);
-                    
+
                     res.status(200).json({
                         access_token
                     });
@@ -83,17 +85,28 @@ class HeroController {
     static async addHero(req, res) {
         try {
             const { name, level, classId, partyId, email, password, isAdmin } = req.body;
-            // const { image } = req.file.filename;
-            let result = await heroes.create({
+            const { hp, mgc, stam, str, def, int, dex, char, heroId } = req.body;
+            
+            let addHero = await heroes.create({
                 name, level, image: req.file.filename, classId, partyId, email, password, isAdmin
             });
+
+            await heroStats.create({
+                hp, mgc, stam, str, def, int, dex, char, heroId: addHero.id
+            });
+
+            let result = await heroes.findOne({
+                where: { id: addHero.id },
+                include: [classes, heroStats]
+            })
+
             res.status(201).json(result);
         } catch (err) {
             res.status(500).json(err);
         }
     }
 
-    // Temp
+    // Temp/unused
     static async addHeroStats(req, res) {
         try {
             const { hp, mgc, stam, str, def, int, dex, char, heroId } = req.body;
@@ -124,9 +137,19 @@ class HeroController {
     static async delete(req, res) {
         try {
             const id = +req.params.id;
+            let oldImg = await heroes.findOne({ where: { id } });
             let result = await heroes.destroy({
                 where: { id }
             });
+            await heroStats.destroy({
+                where: { heroId: id }
+            })
+            fs.unlink('./public/uploads/' + oldImg.image, (err) => {
+                if (err) {
+                    throw err;
+                }
+            })
+
             result === 1 ?
                 res.status(200).json({
                     message: `Heroes id ${id} deleted successfully!`
@@ -153,7 +176,7 @@ class HeroController {
                             Sequelize.fn('LOWER', Sequelize.col('image')), { [Op.like]: `%${search}%` }
                         ),
                     ],
-                    isAdmin: { [Op.ne] : true }
+                    isAdmin: { [Op.ne]: true }
                 }
             })
             res.status(200).json(result);

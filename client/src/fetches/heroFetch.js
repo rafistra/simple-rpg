@@ -74,6 +74,22 @@ const addHero = async hero => {
     }
 }
 
+const addHeroStats = async hero => {
+    try {
+        let result = await axios({
+            method: 'POST',
+            url: URL + '/add-stats/',
+            data: hero,
+            headers: {
+
+            }
+        });
+        console.log(result.data);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 const removeHero = async id => {
     try {
         let result = await axios({
@@ -87,5 +103,5 @@ const removeHero = async id => {
 }
 
 export {
-    getHeroes, getHeroStats, addHero, removeHero, searchHero, getPlayer
+    getHeroes, getHeroStats, addHero, addHeroStats, removeHero, searchHero, getPlayer
 }

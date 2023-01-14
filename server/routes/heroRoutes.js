@@ -22,7 +22,7 @@ heroRoute.post(
     '/login',
     HeroController.login);
 heroRoute.post(
-    '/stats/',
+    '/add-stats/',
     HeroController.addHeroStats);
 heroRoute.put(
     '/:id',
