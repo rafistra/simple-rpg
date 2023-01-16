@@ -20,4 +20,10 @@ npx sequelize-cli model:generate --name heroStats --attributes hp:integer,mgc:in
 table users
 npx sequelize-cli migration:create --name modify_heroes_add_new_fields
 
+table skills
+npx sequelize-cli model:generate --name skills --attributes name:string,image:string,desc:string
+
+table classSkils 
+npx sequelize-cli model:generate --name classSkills --attributes classId:integer,skillId:integer
+
 ```

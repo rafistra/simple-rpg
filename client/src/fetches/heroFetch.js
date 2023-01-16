@@ -38,7 +38,10 @@ const getHeroStats = async (id, cb) => {
     try {
         let result = await axios({
             method: 'GET',
-            url: URL + '/hero-stats/' + id
+            url: URL + '/hero-stats/' + id,
+            headers: {
+                access_token: token
+            }
         });
         // const { id, name, level } = result.data;
         // alert(`Id: ${id}, Name: ${name}, Level: ${level}`);
@@ -90,6 +93,21 @@ const addHeroStats = async hero => {
     }
 }
 
+const updateHero = async (id, hero) => {
+    try {
+        let result = await axios({
+            method: 'PUT',
+            url: URL + '/update/' + id,
+            data: hero,
+            headers: {
+
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 const removeHero = async id => {
     try {
         let result = await axios({
@@ -103,5 +121,5 @@ const removeHero = async id => {
 }
 
 export {
-    getHeroes, getHeroStats, addHero, addHeroStats, removeHero, searchHero, getPlayer
+    getHeroes, getHeroStats, addHero, addHeroStats, removeHero, searchHero, getPlayer, updateHero
 }

@@ -18,6 +18,55 @@ const getClasses = async cb => {
     }
 }
 
+const addClass = async data => {
+    try {
+        let clas = await axios({
+            method: 'POST',
+            url: URL + 'add-class',
+            data: data,
+            headers: {   
+                'Accept': 'application/json',
+                'Content-Type': `multipart/form-data`
+            }
+        })
+        console.log(clas)
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const getSkills = async cb => {
+    try {
+        let skills = await axios({
+            method: 'GET',
+            url: URL + 'skills',
+        });
+        cb(skills.data)
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const getSkillById = async (id, cb) => {
+    try {
+        let result = await axios({
+            method: 'GET',
+            url: URL + '/skill/' + id
+        });
+        cb(result.data);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const addClassSkill1 = async cb => {
+    try {
+        
+    } catch (e) {
+        console.log(e)
+    }
+}
+
 export {
-    getClasses
+    getClasses, addClass, getSkills, addClassSkill1, getSkillById
 }

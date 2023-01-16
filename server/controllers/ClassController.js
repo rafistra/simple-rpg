@@ -1,10 +1,12 @@
-const { classes } = require('../models');
-const { heroes } = require('../models');
+const { classes, heroes, skills, classSkills } = require('../models');
+const fs = require('fs')
 
 class ClassController {
     static async getAllClasses(req, res) {
         try {
-            let result = await classes.findAll();
+            let result = await classes.findAll({
+                include: [skills]
+            });
             res.status(200).json(result);
         } catch (err) {
             res.status(500).json(err);
@@ -24,10 +26,32 @@ class ClassController {
 
     static async add(req, res) {
         try {
-            const { name, image } = req.body;
-            let result = await classes.create({
-                name, image
+            const { name } = req.body;
+            const { skillId1, skillId2, skillId3, skillId4 } = req.body;
+            let addClass = await classes.create({
+                name, image: req.file.filename
             });
+
+            await classSkills.create({
+                classId: addClass.id, skillId: skillId1
+            })
+
+            await classSkills.create({
+                classId: addClass.id, skillId: skillId2
+            })
+
+            await classSkills.create({
+                classId: addClass.id, skillId: skillId3
+            })
+
+            await classSkills.create({
+                classId: addClass.id, skillId: skillId4
+            })
+
+            let result = await classes.findOne({
+                where: { id: addClass.id },
+                include: [skills]
+            })
             res.status(201).json(result);
         } catch (err) {
             res.status(500).json(err);
@@ -52,9 +76,21 @@ class ClassController {
     static async delete(req, res) {
         try {
             const id = +req.params.id;
+            let oldImg = await classes.findOne({ where: { id } });
             let result = await classes.destroy({
                 where: { id }
             });
+
+            await classSkills.destroy({
+                where: { classId: id }
+            })
+
+            fs.unlink('./public/uploads/' + oldImg.image, (err) => {
+                if (err) {
+                    throw err;
+                }
+            })
+
             result === 1 ?
                 res.status(200).json({
                     message: `class id ${id} deleted successfully!`
@@ -63,6 +99,66 @@ class ClassController {
                     message: `class id ${id} not deleted successfully!`
                 });
         } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    //Skills
+    static async getSkills(req, res) {
+        try {
+            let result = await skills.findAll();
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    static async getSkillById(req, res) {
+        try {
+            const id = Number(req.params.id);
+            let result = await skills.findByPk(id);
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    static async addSkill(req, res) {
+        try {
+            const { name, desc } = req.body;
+
+            let result = await skills.create({
+                name, image: req.file.filename, desc
+            });
+            res.status(201).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    static async getAllSkills(req, res) {
+        try {
+            let result = await skills.findAll({
+                order: [
+                    ['name', 'asc']
+                ]
+            });
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    static async addSkillClass(req, res) {
+        try {
+            const { classId, skillId } = req.body;
+            
+            let result = await classSkills.create({
+                classId, skillId
+            });
+
+            res.status(200).json(result);
+        } catch (e) {
             res.status(500).json(err);
         }
     }

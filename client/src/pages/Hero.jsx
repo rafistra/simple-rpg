@@ -46,7 +46,7 @@ const Hero = () => {
                     </div>
                 </div>
             </div>
-            <div className='page-body'>
+            <div className='page-body' style={{marginBottom: '20px'}}>
                 <div className="text-center">
                     <HeroList />
                 </div>

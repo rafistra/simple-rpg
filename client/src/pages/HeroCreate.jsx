@@ -9,7 +9,6 @@ const HeroCreate = () => {
     const [getClassTrigger, setGetClassTrigger] = useState(true);
     const [selectedFile, setSelectedFile] = useState(null);
     const navigation = useNavigate();
-    
 
     const [form, setForm] = useState({
         name: '',
@@ -56,7 +55,7 @@ const HeroCreate = () => {
         navigation('/heroes')
         window.location.reload(true)
     }
-    
+
     let startingPoints = 3200;
     let statPoints = (Number(formStats.hp) + Number(formStats.mgc) + Number(formStats.stam) + Number(formStats.str) + Number(formStats.def) + Number(formStats.int) + Number(formStats.dex) + Number(formStats.char));
     let needPoints = startingPoints - statPoints;
@@ -71,7 +70,10 @@ const HeroCreate = () => {
                 </div>
             </div>
             <div className='page-body'>
-                <div className='w-75'>
+                <div>
+                    <h4 className='mb-3'>Basic Information</h4>
+                </div>
+                <div className='w-100'>
                     <div className='mb-3'>
                         <label>Name: </label>
                         <input
@@ -118,18 +120,24 @@ const HeroCreate = () => {
                 </div>
             </div>
             <div className='page-body' style={{ marginTop: '20px' }}>
-                <div className='w-75'>
-                <div className='mb-3'>
+                <div>
+                    <h4 className='mb-3'>Attributes</h4>
+                </div>
+                <div className='w-100'>
+                    <div className='mb-3'>
                         <label>Points Left: {needPoints}</label>
+                    </div>
+                    <div className='mb-3'>
+
                     </div>
                     <div className='mb-3'>
                         <label>Health: {formStats.hp}</label>
                         <input
                             onChange={(e) => setFormStats({ ...formStats, hp: (e.target.value) })}
                             type='range'
-                            className='form-range'
+                            className='form-control'
                             min='50'
-                            max='400'
+                            max={needPoints}
                             step='1'>
                         </input>
                     </div>
@@ -138,9 +146,9 @@ const HeroCreate = () => {
                         <input
                             onChange={(e) => setFormStats({ ...formStats, mgc: e.target.value })}
                             type='range'
-                            className='form-range'
+                            className='form-control'
                             min='50'
-                            max='400'
+                            max={needPoints}
                             step='1'>
                         </input>
                     </div>
@@ -149,9 +157,9 @@ const HeroCreate = () => {
                         <input
                             onChange={(e) => setFormStats({ ...formStats, stam: e.target.value })}
                             type='range'
-                            className='form-range'
+                            className='form-control'
                             min='50'
-                            max='400'
+                            max={needPoints}
                             step='1'>
                         </input>
                     </div>
@@ -160,9 +168,9 @@ const HeroCreate = () => {
                         <input
                             onChange={(e) => setFormStats({ ...formStats, str: e.target.value })}
                             type='range'
-                            className='form-range'
+                            className='form-control'
                             min='50'
-                            max='400'
+                            max={needPoints}
                             step='1'>
                         </input>
                     </div>
@@ -171,9 +179,9 @@ const HeroCreate = () => {
                         <input
                             onChange={(e) => setFormStats({ ...formStats, def: e.target.value })}
                             type='range'
-                            className='form-range'
+                            className='form-control'
                             min='50'
-                            max='400'
+                            max={needPoints}
                             step='1'>
                         </input>
                     </div>
@@ -182,9 +190,9 @@ const HeroCreate = () => {
                         <input
                             onChange={(e) => setFormStats({ ...formStats, int: e.target.value })}
                             type='range'
-                            className='form-range'
+                            className='form-control'
                             min='50'
-                            max='400'
+                            max={needPoints}
                             step='1'>
                         </input>
                     </div>
@@ -193,9 +201,9 @@ const HeroCreate = () => {
                         <input
                             onChange={(e) => setFormStats({ ...formStats, dex: e.target.value })}
                             type='range'
-                            className='form-range'
+                            className='form-control'
                             min='50'
-                            max='400'
+                            max={needPoints}
                             step='1'>
                         </input>
                     </div>
@@ -204,9 +212,9 @@ const HeroCreate = () => {
                         <input
                             onChange={(e) => setFormStats({ ...formStats, char: e.target.value })}
                             type='range'
-                            className='form-range'
+                            className='form-control'
                             min='50'
-                            max='400'
+                            max={needPoints}
                             step='1'>
                         </input>
                     </div>
@@ -215,8 +223,6 @@ const HeroCreate = () => {
                             onClick={() => submitHandler()}
                             className='btn btn-block btn-primary'>Submit</button>
                     </div>
-
-                    <img src={form.image}></img>
                 </div>
             </div>
         </div>

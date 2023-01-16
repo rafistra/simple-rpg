@@ -86,7 +86,7 @@ class HeroController {
         try {
             const { name, level, classId, partyId, email, password, isAdmin } = req.body;
             const { hp, mgc, stam, str, def, int, dex, char, heroId } = req.body;
-            
+
             let addHero = await heroes.create({
                 name, level, image: req.file.filename, classId, partyId, email, password, isAdmin
             });
@@ -123,11 +123,22 @@ class HeroController {
         try {
             const id = +req.params.id;
             const { name, level, image, classId, partyId } = req.body;
-            let result = await heroes.update({
-                name, level, image, classId, partyId
+            const { hp, mgc, stam, str, def, int, dex, char, heroId } = req.body;
+            let oldImg = await heroes.findOne({ where: { id } });
+
+            if (req.file) {
+                await heroes.update({ name, level, image: req.file.filename, classId, partyId }, { where: { id } });
+                fs.unlink('./public/uploads/' + oldImg.image, (err) => { if (err) throw err })
+            } else {
+                await heroes.update({ name, level, classId, partyId }, { where: { id } });
+            }
+
+            await heroStats.update({
+                hp, mgc, stam, str, def, int, dex, char,
             }, {
-                where: { id }
+                where: { heroId: id }
             });
+
             res.status(201).json(result);
         } catch (err) {
             res.status(500).json(err);

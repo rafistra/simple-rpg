@@ -3,8 +3,6 @@ import { getHeroes, getHeroStats } from '../fetches/heroFetch';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Stat.css'
 import { useParams } from 'react-router-dom';
-import Chart from 'chart.js/auto';
-
 
 const HeroStats = () => {
     const params = useParams();
@@ -34,41 +32,17 @@ const HeroStats = () => {
 
     const { name, level, image, heroStat } = stat;
     // const { str } = HeroStat;
+    const newHp = heroStat.hp / 20;
+    const newSta = heroStat.stam / 20;
+    const newMgc = heroStat.mgc / 20;
 
-    const chartAttribs = {
-        type: 'radar',
-        data: radar,
-        options: {
-            elements: {
-                line: {
-                    borderWidth: 3
-                }
-            }
-        },
-    };
+    const newStr = heroStat.str / 20;
+    const newDef = heroStat.def / 20;
+    const newInt = heroStat.int / 20;
+    const newDex = heroStat.dex / 20;
+    const newChar = heroStat.char / 20;
 
-    const radar = {
-        labels: [
-            'Eating',
-            'Drinking',
-            'Sleeping',
-            'Designing',
-            'Coding',
-            'Cycling',
-            'Running'
-        ],
-        datasets: [{
-            label: 'My First Dataset',
-            data: [heroStat.str, 59, 90, 81, 56, 55, 40],
-            fill: true,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgb(255, 99, 132)',
-            pointBackgroundColor: 'rgb(255, 99, 132)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgb(255, 99, 132)'
-        }]
-    };
+
 
     return (
         <div className='w-100 h-100'>
@@ -82,26 +56,93 @@ const HeroStats = () => {
             </div>
             <div className='page-body'>
                 <div className='row'>
-                    <div className='col-sm-4'>
+                    <div className='col'>
                         <div className='player-img'>
                             <img src={'http://localhost:3000/static/uploads/' + image} alt="" />
                         </div>
                     </div>
-                    <div className='col-sm-8 row'>
+                    <div className='col'>
                         <div>
-                            <h4>{name}'s Stats</h4>
+                            <h4 style={{marginBottom: '20px'}}>Attributes</h4>
                         </div>
-                        <div className='row align-top'>
-                            <div className='col-sm-6 text-start '>
-                                Hahaha
-                            </div>
-                            <div className='col-sm-6 align-top' >
-                                <div>
-                                    <Chart
-                                    >{chartAttribs}</Chart>
+                        <div className='row my-2'>
+                            <div className='col-sm-3 text-start'>Health</div>
+                            <div className='col-sm-7'>
+                                <div className="progress stat-bar-bg">
+                                    <div className="progress-bar bg-danger stat-bar" role="progressbar" style={{ width: `${newHp}%` }} aria-valuenow={newHp} aria-valuemin='0' aria-valuemax='100'></div>
                                 </div>
                             </div>
+                            <div className='col-sm-2 text-end'>{heroStat.hp}</div>
                         </div>
+                        <div className='row my-2'>
+                            <div className='col-sm-3 text-start'>Stamina</div>
+                            <div className='col-sm-7'>
+                                <div className="progress">
+                                    <div className="progress-bar bg-success" role="progressbar" style={{ width: `${newSta}%` }} aria-valuenow={newSta} aria-valuemin='0' aria-valuemax='100'></div>
+                                </div>
+                            </div>
+                            <div className='col-sm-2 text-end'>{heroStat.stam}</div>
+                        </div>
+                        <div className='row my-2'>
+                            <div className='col-sm-3 text-start'>Magic</div>
+                            <div className='col-sm-7'>
+                                <div className="progress">
+                                    <div className="progress-bar bg-primary" role="progressbar" style={{ width: `${newMgc}%` }} aria-valuenow={newMgc} aria-valuemin='0' aria-valuemax='100'></div>
+                                </div>
+                            </div>
+                            <div className='col-sm-2 text-end'>{heroStat.mgc}</div>
+                        </div>
+                        <div className='my-3'>
+
+                        </div>
+                        <div className='row my-2'>
+                            <div className='col-sm-3 text-start'>Strength</div>
+                            <div className='col-sm-7'>
+                                <div className="progress">
+                                    <div className="progress-bar bg-info" role="progressbar" style={{ width: `${newStr}%` }} aria-valuenow={newStr} aria-valuemin='0' aria-valuemax='100'></div>
+                                </div>
+                            </div>
+                            <div className='col-sm-2 text-end'>{heroStat.str}</div>
+                        </div>
+                        <div className='row my-2'>
+                            <div className='col-sm-3 text-start'>Defense</div>
+                            <div className='col-sm-7'>
+                                <div className="progress">
+                                    <div className="progress-bar bg-info" role="progressbar" style={{ width: `${newDef}%` }} aria-valuenow={newDef} aria-valuemin='0' aria-valuemax='100'></div>
+                                </div>
+                            </div>
+                            <div className='col-sm-2 text-end'>{heroStat.def}</div>
+                        </div>
+                        <div className='row my-2'>
+                            <div className='col-sm-3 text-start'>Intelligence</div>
+                            <div className='col-sm-7'>
+                                <div className="progress">
+                                    <div className="progress-bar bg-info" role="progressbar" style={{ width: `${newInt}%` }} aria-valuenow={newInt} aria-valuemin='0' aria-valuemax='100'></div>
+                                </div>
+                            </div>
+                            <div className='col-sm-2 text-end'>{heroStat.int}</div>
+                        </div>
+                        <div className='row my-2'>
+                            <div className='col-sm-3 text-start'>Dexterity</div>
+                            <div className='col-sm-7'>
+                                <div className="progress">
+                                    <div className="progress-bar bg-info" role="progressbar" style={{ width: `${newDex}%` }} aria-valuenow={newDex} aria-valuemin='0' aria-valuemax='100'></div>
+                                </div>
+                            </div>
+                            <div className='col-sm-2 text-end'>{heroStat.dex}</div>
+                        </div>
+                        <div className='row my-2'>
+                            <div className='col-sm-3 text-start'>Charisma</div>
+                            <div className='col-sm-7'>
+                                <div className="progress">
+                                    <div className="progress-bar bg-info" role="progressbar" style={{ width: `${newChar}%` }} aria-valuenow={newChar} aria-valuemin='0' aria-valuemax='100'></div>
+                                </div>
+                            </div>
+                            <div className='col-sm-2 text-end'>{heroStat.char}</div>
+                        </div>
+                    </div>
+                    <div className='col'>
+                        
                     </div>
                 </div>
             </div>

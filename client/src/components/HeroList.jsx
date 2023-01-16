@@ -26,7 +26,7 @@ const HeroList = () => {
         })
     }
     return (
-        <div className="row row-cols-6">
+        <div className="row row-cols-6" style={{marginBottom: '0px'}}>
             {
                 heroes.length > 0 ?
                     heroes.map(hero => {
@@ -47,7 +47,7 @@ const HeroList = () => {
                                                 <h6 data-bs-toggle="dropdown"><BiDotsVerticalRounded ></BiDotsVerticalRounded></h6>
                                                 <ul className="dropdown-menu">
                                                     <li><Link class="dropdown-item" href="#"><GiShakingHands />   Hire</Link></li>
-                                                    <li><Link class="dropdown-item" href="#"><BsFillPencilFill />   Train</Link></li>
+                                                    <li><Link class="dropdown-item" to={`/heroes/update/${id}`}><BsFillPencilFill />   Train</Link></li>
                                                     <li><Link class="dropdown-item"
                                                         onClick={() => {
                                                             deleteHandler(+id)
@@ -57,7 +57,7 @@ const HeroList = () => {
                                             </Link>
                                         </div>
                                         <h6 className="card-text">{vocation}</h6>
-                                        <h6 className="card-text"><GiBoltShield /> Level {level}</h6>
+                                        <h6 className="card-text"><GiBoltShield /> {level}</h6>
                                     </div>
                                 </div>
                             </div>

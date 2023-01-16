@@ -4,10 +4,19 @@
 }
 
 .stat-img {
-    height: 350px;
-    width: 350px;
+    height: 250px;
+    width: 250px;
 }
 
 .row {
     display: flex;
+}
+
+.stat-bar {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.stat-bar-bg {
+    background-color: rgb(225, 200, 171);
 }

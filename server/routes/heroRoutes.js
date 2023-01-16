@@ -3,18 +3,11 @@ const { HeroController } = require('../controllers/');
 const { authentication } = require('../middlewares/auth');
 const { upload } = require('../middlewares/multer');
 
-heroRoute.get(
-    '/',
-    authentication,
-    HeroController.getAllHeroes);
-heroRoute.get(
-    '/hero-stats/:id',
-    HeroController.getHeroById);
-heroRoute.get(
-    '/hero-player/',
-    authentication,
-    HeroController.getUserHero);
-heroRoute.post(
+heroRoute.get('/', authentication,HeroController.getAllHeroes);
+heroRoute.get('/hero-stats/:id',authentication,HeroController.getHeroById);
+heroRoute.get('/hero-player/',authentication,HeroController.getUserHero);
+
+    heroRoute.post(
     '/add-hero',
     upload.single('image'),
     HeroController.addHero);
@@ -25,7 +18,8 @@ heroRoute.post(
     '/add-stats/',
     HeroController.addHeroStats);
 heroRoute.put(
-    '/:id',
+    '/update/:id',
+    upload.single('image'),
     HeroController.update);
 heroRoute.delete(
     '/delete-hero/:id',

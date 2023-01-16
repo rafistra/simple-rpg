@@ -5,3 +5,18 @@
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
 }
+
+.buttonNav {
+    color: white;
+    background-color: brown;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.buttonNav:hover {
+    color: brown;
+    background-color: white;
+}

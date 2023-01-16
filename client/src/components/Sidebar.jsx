@@ -29,11 +29,11 @@ const Sidebar = ({ children }) => {
             name: 'Classes',
             icon: <GiClassicalKnowledge />
         },
-        {
-            path: '/parties',
-            name: 'Parties',
-            icon: <GiGuards />
-        },
+        // {
+        //     path: '/parties',
+        //     name: 'Parties',
+        //     icon: <GiGuards />
+        // },
     ]
     return (
         <div className='main-sidebar'>
