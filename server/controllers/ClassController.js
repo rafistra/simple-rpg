@@ -24,6 +24,18 @@ class ClassController {
         }
     }
 
+    static async getClassById(req, res) {
+        try {
+            const id = +req.params.id;
+            let result = await classes.findByPk(id, {
+                include: [skills]
+            })
+            res.status(200).json(result)
+        } catch (err) {
+            res.status(500).json(err)
+        }
+    }
+
     static async add(req, res) {
         try {
             const { name } = req.body;
@@ -62,10 +74,39 @@ class ClassController {
         try {
             const id = +req.params.id;
             const { name, image } = req.body;
-            let result = await classes.update({
-                name, image
-            }, {
-                where: { id }
+            const { skillId1, skillId2, skillId3, skillId4 } = req.body;
+            let oldImg = await classes.findOne({ where: { id } });
+
+            if (req.file) {
+                await classes.update({ name, image: req.file.filename}, { where: { id } });
+                fs.unlink('./public/uploads/' + oldImg.image, (err) => { if (err) throw err })
+            } else {
+                await classes.update({ name, image: req.file.filename }, { where: { id } });
+            }
+
+            await classSkills.destroy({
+                where: { classId: id }
+            })
+
+            await classSkills.create({
+                classId: id,
+                skillId: skillId1
+            })
+            await classSkills.create({
+                classId: id,
+                skillId: skillId2
+            })
+            await classSkills.create({
+                classId: id,
+                skillId: skillId3
+            })
+            await classSkills.create({
+                classId: id,
+                skillId: skillId4
+            })
+
+            let result = await classes.findByPk(id, {
+                include: [skills]
             });
             res.status(201).json(result);
         } catch (err) {
@@ -143,10 +184,12 @@ class ClassController {
                     ['name', 'asc']
                 ]
             });
+            // console.log(result)
             res.status(200).json(result);
         } catch (err) {
             res.status(500).json(err);
         }
+        
     }
 
     static async addSkillClass(req, res) {

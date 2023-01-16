@@ -40,24 +40,25 @@ const Login = (props) => {
             <h3>Login</h3>
           </div>
           <div className='my-4 w-100'>
-            <div className='input-group mb-3'>
-              <span className='input-group-text'>@</span>
+            <div className='form-floating mb-3'>
               <input
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 type='text'
                 className='form-control'
                 placeholder='Username'
               />
+              <label for="floatingInput">Email</label>
             </div>
-            <div className='input-group mb-3'>
-              <span className='input-group-text'>@</span>
+            <div className='form-floating mb-3'>
               <input
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 type='password'
                 className='form-control'
                 placeholder='Password'
               />
+              <label for="floatingInput">Password</label>
             </div>
+            
             <div className='mb-3 loginBtn'>
               <button onClick={() => submitHandler()} className='btn btn-success'>
                 LOGIN

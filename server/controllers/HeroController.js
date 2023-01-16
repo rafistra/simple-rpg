@@ -123,7 +123,7 @@ class HeroController {
         try {
             const id = +req.params.id;
             const { name, level, image, classId, partyId } = req.body;
-            const { hp, mgc, stam, str, def, int, dex, char, heroId } = req.body;
+            const { hp, mgc, stam, str, def, int, dex, char } = req.body;
             let oldImg = await heroes.findOne({ where: { id } });
 
             if (req.file) {
@@ -137,6 +137,10 @@ class HeroController {
                 hp, mgc, stam, str, def, int, dex, char,
             }, {
                 where: { heroId: id }
+            });
+
+            let result = await heroes.findByPk(id, {
+                include: [classes, heroStats]
             });
 
             res.status(201).json(result);

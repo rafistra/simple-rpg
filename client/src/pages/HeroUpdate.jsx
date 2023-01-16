@@ -13,86 +13,37 @@ const HeroUpdate = () => {
 
   const { id } = params;
 
-  // const [stat, setStat] = useState({
-  //   name: '',
-  //   level: '',
-  //   class: {
-  //     name: ''
-  //   },
-  //   heroStat: {
-  //     hp: 0,
-  //     mgc: 0,
-  //     stam: 0,
-  //     str: 0,
-  //     def: 0,
-  //     int: 0,
-  //     dex: 0,
-  //     char: 0
-  //   }
-  // });
-
   const [form, setForm] = useState({
     name: '',
-    level: '',
-    class: {
-      name: ''
-    },
-    heroStat: {
-      hp: 0,
-      mgc: 0,
-      stam: 0,
-      str: 0,
-      def: 0,
-      int: 0,
-      dex: 0,
-      char: 0
-    }
+    level: 0,
+    image: null,
+    classId: 0,
+    hp: 0,
+    mgc: 0,
+    stam: 0,
+    str: 0,
+    def: 0,
+    int: 0,
+    dex: 0,
+    char: 0
   });
-
-  // const [form, setForm] = useState({
-  //   name: '',
-  //   level: 0,
-  //   image: null,
-  //   classId: 0,
-  //   partyId: 2,
-  // });
-
-  let newHp = form.heroStat.hp;
-  let newMgc = form.heroStat.mgc;
-  let newSta = form.heroStat.stam;
-  let newStr = form.heroStat.str;
-  let newDef = form.heroStat.def;
-  let newInt = form.heroStat.int;
-  let newDex = form.heroStat.dex;
-  let newCha = form.heroStat.char;
-
-  const [formStats, setFormStats] = useState({
-    hp: 50,
-    mgc: 50,
-    stam: 50,
-    str: 50,
-    def: 50,
-    int: 50,
-    dex: 50,
-    char: 50,
-  })
 
   useEffect(() => {
     getHeroStats(+id, result => setForm({
       name: result.name,
       level: result.level,
-      heroStat: {
-        hp: result.heroStat.hp,
-        mgc: result.heroStat.mgc,
-        stam: result.heroStat.stam,
-        str: result.heroStat.str,
-        def: result.heroStat.def,
-        int: result.heroStat.int,
-        dex: result.heroStat.dex,
-        char: result.heroStat.char,
-      }
+      image: result.image,
+      classId: result.classId,
+      hp: result.heroStat.hp,
+      mgc: result.heroStat.mgc,
+      stam: result.heroStat.stam,
+      str: result.heroStat.str,
+      def: result.heroStat.def,
+      int: result.heroStat.int,
+      dex: result.heroStat.dex,
+      char: result.heroStat.char
     }));
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     getClasses(result => setClasses(result));
@@ -104,17 +55,15 @@ const HeroUpdate = () => {
     formData.append('level', form.level);
     formData.append('image', form.image);
     formData.append('classId', form.classId);
-    // formData.append('partyId', form.partyId);
-    // console.log(formStats.hp)
-
-    formData.append('hp', formStats.hp);
-    formData.append('mgc', formStats.mgc);
-    formData.append('stam', formStats.stam);
-    formData.append('str', formStats.str);
-    formData.append('def', formStats.def);
-    formData.append('int', formStats.int);
-    formData.append('dex', formStats.dex);
-    formData.append('char', formStats.char);
+    formData.append('hp', form.hp);
+    formData.append('mgc', form.mgc);
+    formData.append('stam', form.stam);
+    formData.append('str', form.str);
+    formData.append('def', form.def);
+    formData.append('int', form.int);
+    formData.append('dex', form.dex);
+    formData.append('char', form.char);
+    
 
     // addHero(form);
     updateHero(+id, formData);
@@ -123,8 +72,8 @@ const HeroUpdate = () => {
   }
 
   let startingPoints = 3200;
-  let statPoints = (Number(formStats.hp) + Number(formStats.mgc) + Number(formStats.stam) + Number(formStats.str) + Number(formStats.def) + Number(formStats.int) + Number(formStats.dex) + Number(formStats.char));
-  let needPoints = startingPoints - statPoints;
+  // let statPoints = (Number(formStats.hp) + Number(formStats.mgc) + Number(formStats.stam) + Number(formStats.str) + Number(formStats.def) + Number(formStats.int) + Number(formStats.dex) + Number(formStats.char));
+  // let needPoints = startingPoints - statPoints;
 
   return (
     <div className='w-100 h-100'>
@@ -179,7 +128,7 @@ const HeroUpdate = () => {
                       name="inlineRadioOptions" id={id}
                       className="form-check-input"
                       type="radio"
-                      // value={form.classId}
+                      value={id}
                       onChange={(e) => setForm({ ...form, classId: e.target.value })} />
                     <label className="form-check-label" for="inlineRadio1">{name}</label>
                   </div>
@@ -201,12 +150,12 @@ const HeroUpdate = () => {
           </div>
           <div className='mb-3'>
             <div className='row'>
-              <label className='col'>Health: {newHp}</label>
-              <label className='col text-end'>{formStats.hp}</label>
+              <label className='col'>Health: </label>
+              <label className='col text-end'>{form.hp}</label>
             </div>
             <input
-              value={formStats.hp}
-              onChange={(e) => setFormStats({ ...formStats, hp: (e.target.value) })}
+              value={form.hp}
+              onChange={(e) => setForm({ ...form, hp: (e.target.value) })}
               type='range'
               className='form-control'
               min='50'
@@ -216,12 +165,12 @@ const HeroUpdate = () => {
           </div>
           <div className='mb-3'>
             <div className='row'>
-              <label className='col'>Magic: {newMgc}</label>
-              <label className='col text-end'>{formStats.mgc}</label>
+              <label className='col'>Magic: </label>
+              <label className='col text-end'>{form.mgc}</label>
             </div>
             <input
-              value={formStats.mgc}
-              onChange={(e) => setFormStats({ ...formStats, mgc: e.target.value })}
+              value={form.mgc}
+              onChange={(e) => setForm({ ...form, mgc: e.target.value })}
               type='range'
               className='form-control'
               min='50'
@@ -231,12 +180,12 @@ const HeroUpdate = () => {
           </div>
           <div className='mb-3'>
             <div className="row">
-              <label className='col'>Stamina: {newSta}</label>
-              <label className='col text-end'>{formStats.stam}</label>
+              <label className='col'>Stamina: </label>
+              <label className='col text-end'>{form.stam}</label>
             </div>
             <input
-              value={formStats.stam}
-              onChange={(e) => setFormStats({ ...formStats, stam: e.target.value })}
+              value={form.stam}
+              onChange={(e) => setForm({ ...form, stam: e.target.value })}
               type='range'
               className='form-control'
               min='50'
@@ -246,12 +195,12 @@ const HeroUpdate = () => {
           </div>
           <div className='mb-3'>
             <div className="row">
-              <label className='col'>Strength: {newStr}</label>
-              <label className='col text-end'>{formStats.str}</label>
+              <label className='col'>Strength: </label>
+              <label className='col text-end'>{form.str}</label>
             </div>
             <input
-              value={formStats.str}
-              onChange={(e) => setFormStats({ ...formStats, str: e.target.value })}
+              value={form.str}
+              onChange={(e) => setForm({ ...form, str: e.target.value })}
               type='range'
               className='form-control'
               min='50'
@@ -261,12 +210,12 @@ const HeroUpdate = () => {
           </div>
           <div className='mb-3'>
             <div className="row">
-              <label className='col'>Defend: {newDef}</label>
-              <label className='col text-end'>{formStats.def}</label>
+              <label className='col'>Defend: </label>
+              <label className='col text-end'>{form.def}</label>
             </div>
             <input
-              value={formStats.def}
-              onChange={(e) => setFormStats({ ...formStats, def: e.target.value })}
+              value={form.def}
+              onChange={(e) => setForm({ ...form, def: e.target.value })}
               type='range'
               className='form-control'
               min='50'
@@ -276,12 +225,12 @@ const HeroUpdate = () => {
           </div>
           <div className='mb-3'>
             <div className="row">
-              <label className='col'>Intelligence: {newInt}</label>
-              <label className='col text-end'>{formStats.int}</label>
+              <label className='col'>Intelligence: </label>
+              <label className='col text-end'>{form.int}</label>
             </div>
             <input
-              value={formStats.int}
-              onChange={(e) => setFormStats({ ...formStats, int: e.target.value })}
+              value={form.int}
+              onChange={(e) => setForm({ ...form, int: e.target.value })}
               type='range'
               className='form-control'
               min='50'
@@ -291,12 +240,12 @@ const HeroUpdate = () => {
           </div>
           <div className='mb-3'>
             <div className='row'>
-              <label className='col'>Dexterity: {newDex}</label>
-              <label className='col text-end'>{formStats.dex}</label>
+              <label className='col'>Dexterity: </label>
+              <label className='col text-end'>{form.dex}</label>
             </div>
             <input
-              value={formStats.dex}
-              onChange={(e) => setFormStats({ ...formStats, dex: e.target.value })}
+              value={form.dex}
+              onChange={(e) => setForm({ ...form, dex: e.target.value })}
               type='range'
               className='form-control'
               min='50'
@@ -306,12 +255,12 @@ const HeroUpdate = () => {
           </div>
           <div className='mb-3'>
             <div className='row'>
-              <label className='col'>Charisma: {newCha}</label>
-              <label className='col text-end'>{formStats.char}</label>
+              <label className='col'>Charisma: </label>
+              <label className='col text-end'>{form.char}</label>
             </div>
             <input
-              value={formStats.char}
-              onChange={(e) => setFormStats({ ...formStats, char: e.target.value })}
+              value={form.char}
+              onChange={(e) => setForm({ ...form, char: e.target.value })}
               type='range'
               className='form-control'
               min='50'

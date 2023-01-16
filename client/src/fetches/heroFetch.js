@@ -100,7 +100,8 @@ const updateHero = async (id, hero) => {
             url: URL + '/update/' + id,
             data: hero,
             headers: {
-
+                'Accept': 'application/json',
+                'Content-Type': `multipart/form-data`
             }
         });
     } catch (e) {

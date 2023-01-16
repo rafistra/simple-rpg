@@ -12,6 +12,7 @@ import StickyBox from "react-sticky-box";
 import Party from './Party';
 import Quests from './Quests';
 import ClassCreate from './ClassCreate';
+import ClassUpdate from './ClassUpdate';
 
 const Main = (props) => {
     const { loginStatus, loginCbHandler } = props;
@@ -23,7 +24,7 @@ const Main = (props) => {
                     <StickyBox>
                         <Sidebar></Sidebar>
                     </StickyBox>
-                    <Routes style={{overflow: 'hidden'}}>
+                    <Routes style={{ overflow: 'hidden' }}>
                         <Route path='/' element={<Dashboard></Dashboard>} />
                         <Route path='heroes'>
                             <Route path='' element={<Hero></Hero>}></Route>
@@ -38,6 +39,9 @@ const Main = (props) => {
                         <Route path='/classes'>
                             <Route path='' element={<Class></Class>}></Route>
                             <Route path='create' element={<ClassCreate></ClassCreate>}></Route>
+                            <Route path='update'>
+                                <Route path=':id' element={<ClassUpdate></ClassUpdate>}></Route>
+                            </Route>
                         </Route>
                         <Route path='/quests' element={<Quests></Quests>} />
                         <Route path='/parties'>

@@ -18,18 +18,62 @@ const getClasses = async cb => {
     }
 }
 
+const getClassId = async (id, cb) => {
+    try {
+        let result = await axios({
+            method: 'GET',
+            url: URL  + id,
+            headers: {
+                access_token: token
+            }
+        });
+        // const { id, name, level } = result.data;
+        // alert(`Id: ${id}, Name: ${name}, Level: ${level}`);
+        cb(result.data);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 const addClass = async data => {
     try {
         let clas = await axios({
             method: 'POST',
             url: URL + 'add-class',
             data: data,
-            headers: {   
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': `multipart/form-data`
             }
         })
         console.log(clas)
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const updateClass = async (id, data) => {
+    try {
+        let result = await axios({
+            method: 'PUT',
+            url: URL + 'update/' + id,
+            data: data,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': `multipart/form-data`
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const deleteClass = async id => {
+    try {
+        let result = await axios({
+            method: 'DELETE',
+            url: URL + '/delete-class/' + id
+        });
     } catch (e) {
         console.log(e);
     }
@@ -59,14 +103,8 @@ const getSkillById = async (id, cb) => {
     }
 }
 
-const addClassSkill1 = async cb => {
-    try {
-        
-    } catch (e) {
-        console.log(e)
-    }
-}
+
 
 export {
-    getClasses, addClass, getSkills, addClassSkill1, getSkillById
+    getClasses, addClass, getSkills, deleteClass, getSkillById, getClassId, updateClass
 }
