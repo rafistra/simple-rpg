@@ -14,6 +14,7 @@ const Navbar = (props) => {
     const logoutHandler = () => {
         localStorage.clear();
         loginCbHandler(false);
+        <Link to='/login'></Link>
     }
 
     return (

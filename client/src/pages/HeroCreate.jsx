@@ -53,7 +53,7 @@ const HeroCreate = () => {
         // addHero(form);
         addHero(formData);
         navigation('/heroes')
-        window.location.reload(true)
+        // window.location.reload(true)
     }
 
     let startingPoints = 3200;

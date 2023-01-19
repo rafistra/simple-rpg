@@ -84,6 +84,30 @@ class HeroController {
         }
     }
 
+    static async registration(req, res) {
+        try {
+            const { name, level, classId, partyId, email, password, isAdmin } = req.body;
+            const { hp, mgc, stam, str, def, int, dex, char, heroId } = req.body;
+
+            let addHero = await heroes.create({
+                name, level, image: req.file.filename, classId, partyId, email, password, isAdmin: true
+            });
+
+            await heroStats.create({
+                hp, mgc, stam, str, def, int, dex, char, heroId: addHero.id
+            });
+
+            let result = await heroes.findOne({
+                where: { id: addHero.id },
+                include: [classes, heroStats]
+            })
+
+            res.status(201).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
     static async addHero(req, res) {
         try {
             const { name, level, classId, partyId, email, password, isAdmin } = req.body;

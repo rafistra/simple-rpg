@@ -42,19 +42,17 @@ const ClassList = () => {
                                             <div className='col-2'></div>
                                             <h6 className="card-title col-8">{name}</h6>
                                             <Link className="btn-group dropend col-2">
-                                            <h6 data-bs-toggle="dropdown"><BiDotsVerticalRounded ></BiDotsVerticalRounded></h6>
-                                            <ul className="dropdown-menu">
-                                                <li><Link class="dropdown-item" to={`/classes/update/${id}`}><BsFillPencilFill />   Change</Link></li>
-                                                <li><Link class="dropdown-item"
-                                                    onClick={() => {
-                                                        deleteHandler(+id)
-                                                        window.location.reload(true)
-                                                    }}><BsFillTrashFill />   Delete</Link></li>
-                                            </ul>
-                                        </Link>
+                                                <h6 data-bs-toggle="dropdown"><BiDotsVerticalRounded ></BiDotsVerticalRounded></h6>
+                                                <ul className="dropdown-menu">
+                                                    <li><Link class="dropdown-item" to={`/classes/update/${id}`}><BsFillPencilFill />   Change</Link></li>
+                                                    <li><Link class="dropdown-item"
+                                                        onClick={() => {
+                                                            deleteHandler(+id)
+                                                            window.location.reload(true)
+                                                        }}><BsFillTrashFill />   Delete</Link></li>
+                                                </ul>
+                                            </Link>
                                         </div>
-                                        
-
                                     </div>
                                 </div>
                             </div>

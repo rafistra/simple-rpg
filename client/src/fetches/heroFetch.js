@@ -59,6 +59,23 @@ const searchHero = async (cb) => {
     }
 }
 
+const register = async hero => {
+    try {
+        let result = await axios({
+            method: 'POST',
+            url: URL + '/registration',
+            data: hero,
+            headers: {          
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        // cb(result.data);
+        console.log(result.data);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 const addHero = async hero => {
     try {
         let result = await axios({
@@ -66,8 +83,8 @@ const addHero = async hero => {
             url: URL + '/add-hero',
             data: hero,
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': `multipart/form-data`
+                'Accept': 'application/json',                
+                'Content-Type': 'multipart/form-data'
             }
         });
         // cb(result.data);
@@ -122,5 +139,5 @@ const removeHero = async id => {
 }
 
 export {
-    getHeroes, getHeroStats, addHero, addHeroStats, removeHero, searchHero, getPlayer, updateHero
+    getHeroes, getHeroStats, addHero, addHeroStats, removeHero, searchHero, getPlayer, updateHero, register
 }

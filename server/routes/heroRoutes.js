@@ -9,6 +9,7 @@ heroRoute.get('/hero-player/', authentication, HeroController.getUserHero);
 heroRoute.get('/search', HeroController.search);
 
 heroRoute.post('/add-hero', upload.single('image'), HeroController.addHero);
+heroRoute.post('/registration', upload.single('image'), HeroController.registration);
 heroRoute.post('/login', HeroController.login);
 heroRoute.post('/add-stats/', HeroController.addHeroStats);
 

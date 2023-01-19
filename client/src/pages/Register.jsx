@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addHero, addHeroStats } from '../fetches/heroFetch';
+import { addHero, register } from '../fetches/heroFetch';
 import { getClasses } from '../fetches/classFetch';
 
 const Register = () => {
@@ -14,6 +14,8 @@ const Register = () => {
         name: '',
         level: 0,
         image: null,
+        email: '',
+        password: '',
         classId: 0,
         partyId: 2,
     });
@@ -39,6 +41,8 @@ const Register = () => {
         formData.append('level', form.level);
         formData.append('image', form.image);
         formData.append('classId', form.classId);
+        formData.append('email', form.email);
+        formData.append('password', form.password);
         // formData.append('partyId', form.partyId);
 
         formData.append('hp', formStats.hp);
@@ -51,9 +55,10 @@ const Register = () => {
         formData.append('char', formStats.char);
 
         // addHero(form);
-        addHero(formData);
+        console.log(formData);
+        register(formData);
         navigation('/login')
-        window.location.reload(true)
+        // window.location.reload(true)
     }
 
     let startingPoints = 3200;
@@ -69,7 +74,32 @@ const Register = () => {
                     </div>
                 </div>
             </div>
+            
             <div className='page-body'>
+                <div>
+                    <h4 className='mb-3'>Account Information</h4>
+                </div>
+                <div className='w-100'>
+                    <div className='mb-3'>
+                        <label>Email: </label>
+                        <input
+                            onChange={(e) => setForm({ ...form, email: e.target.value })}
+                            type='text'
+                            className='form-control'>
+                        </input>
+                    </div>
+                    <div className='mb-3'>
+                        <label>Password: </label>
+                        <input
+                            onChange={(e) => setForm({ ...form, password: e.target.value })}
+                            type='password'
+                            className='form-control'>
+                        </input>
+                    </div>
+                </div>
+            </div>
+            
+            <div className='page-body' style={{ marginTop: '20px' }}>
                 <div>
                     <h4 className='mb-3'>Basic Information</h4>
                 </div>
