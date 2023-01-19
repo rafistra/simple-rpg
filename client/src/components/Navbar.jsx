@@ -31,7 +31,7 @@ const Navbar = (props) => {
                                 onClick={() => logoutHandler()}><GiWoodenDoor/></a> :
                             <a
                                 className='nav-link' href='#'
-                                onClick={() => loginHandler()}>Login</a>
+                                onClick={() => loginHandler()}>Login</a> 
                     }
                 </li>
             </ul>
