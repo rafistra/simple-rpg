@@ -1,9 +1,10 @@
 import React from 'react'
-import ClassList from '../components/ClassList'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import ClassList from '../../components/ClassList'
 import { Link } from 'react-router-dom';
-import '../styles/Util.css'
+
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../styles/Util.css'
 
 const Class = () => {
   return (

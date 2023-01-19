@@ -5,7 +5,7 @@ const { upload } = require('../middlewares/multer');
 classRoute.get('/', ClassController.getAllClasses);
 classRoute.get('/skills', ClassController.getAllSkills);
 classRoute.get('/heroes', ClassController.getAllClassesWithHeroes);
-classRoute.get('/:id', ClassController.getClassById);
+classRoute.get('/get/:id', ClassController.getClassById);
 classRoute.get('/skill/:id', ClassController.getSkillById);
 
 classRoute.post('/add-class', upload.single('image'), ClassController.add);

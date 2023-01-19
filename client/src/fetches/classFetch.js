@@ -22,9 +22,10 @@ const getClassId = async (id, cb) => {
     try {
         let result = await axios({
             method: 'GET',
-            url: URL  + id,
+            url: URL + 'get/' + id,
             headers: {
-                access_token: token
+                'Accept': 'application/json',
+                'Content-Type': `multipart/form-data`
             }
         });
         // const { id, name, level } = result.data;

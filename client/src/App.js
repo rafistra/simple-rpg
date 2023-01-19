@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './styles/App.css';
 import Main from './pages/Main';
 import LoginPage from './pages/Login';
+import LoginRegister from './pages/LoginRegister';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -23,10 +24,15 @@ function App() {
   return (
     <div>
       {
-        !loginStatus ? 
-        <LoginPage loginCbHandler={loginCbHandler}></LoginPage> :
-        <Main loginStatus={loginStatus} loginCbHandler={loginCbHandler}></Main>
+        // !loginStatus ?
+        //   <LoginPage loginCbHandler={loginCbHandler}></LoginPage> :
+        //   <Main loginStatus={loginStatus} loginCbHandler={loginCbHandler}></Main>
+
+          !loginStatus ?
+          <LoginRegister loginCbHandler={loginCbHandler}></LoginRegister> :
+          <Main loginStatus={loginStatus} loginCbHandler={loginCbHandler}></Main>
       }
+      
     </div>
   );
 }

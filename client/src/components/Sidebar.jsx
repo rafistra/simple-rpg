@@ -9,11 +9,11 @@ import StickyBox from "react-sticky-box";
 
 const Sidebar = ({ children }) => {
     const menuItem = [
-        {
-            path: '/',
-            name: 'The Board',
-            icon: <GiArcTriomphe />
-        },
+        // {
+        //     path: '/',
+        //     name: 'The Board',
+        //     icon: <GiArcTriomphe />
+        // },
         {
             path: '/quests',
             name: 'Quests',

@@ -1,6 +1,7 @@
 const { heroes, sequelize } = require('../models');
 const { heroStats } = require('../models');
 const { classes } = require('../models');
+const { skills, classSkills } = require('../models');
 const { encryptPwd, decryptPWd } = require('../helpers/bcrypt');
 const { tokenGenerator, tokenVerifier } = require('../helpers/jsonwebtoken');
 const Sequelize = require('sequelize');
@@ -44,6 +45,7 @@ class HeroController {
             let result = await heroes.findByPk(id, {
                 include: [classes, heroStats]
             });
+            
             res.status(200).json(result);
         } catch (err) {
             res.status(500).json(err);

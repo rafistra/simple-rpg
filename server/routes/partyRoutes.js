@@ -1,3 +1,4 @@
+// Unused yet
 const partyRoute = require('express').Router();
 const { PartyController } = require('../controllers/');
 

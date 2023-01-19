@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Dashboard from './Dashboard.jsx';
 import Hero from './Hero.jsx';
-import Class from './Class.jsx';
+import Class from './ClassPage/Class.jsx';
 import Navbar from '../components/Navbar';
 import HeroStats from './HeroStats';
 import HeroCreate from './HeroCreate';
@@ -25,7 +25,7 @@ const Main = (props) => {
                         <Sidebar></Sidebar>
                     </StickyBox>
                     <Routes style={{ overflow: 'hidden' }}>
-                        <Route path='/' element={<Dashboard></Dashboard>} />
+                        <Route path='/' element={<Quests></Quests>} />
                         <Route path='heroes'>
                             <Route path='' element={<Hero></Hero>}></Route>
                             <Route path='create' element={<HeroCreate></HeroCreate>}></Route>

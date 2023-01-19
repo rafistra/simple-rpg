@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { getHeroes, getHeroStats } from '../fetches/heroFetch';
+import { getClassId, getSkillById } from '../fetches/classFetch';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Stat.css'
 import { useParams } from 'react-router-dom';
 
 const HeroStats = () => {
     const params = useParams();
+    // const [class, setClass] = useState()
+    // const [getClassTrigger, setGetClassTrigger] = useState(true);
+
     const [stat, setStat] = useState({
         name: '',
         level: '',
@@ -24,25 +28,34 @@ const HeroStats = () => {
         }
     });
 
+    const [clas, setClas] = useState({
+        name: 's',
+        level: '',
+    });
+
+
     useEffect(() => {
         const { id } = params;
         getHeroStats(+id, result => setStat(result));
+        getSkillById(+id, result => setClas(result));
     }, []);
+
     const vocation = stat.class;
 
     const { name, level, image, heroStat } = stat;
+    // const { nam } = clas
     // const { str } = HeroStat;
-    const newHp = heroStat.hp / 20;
-    const newSta = heroStat.stam / 20;
-    const newMgc = heroStat.mgc / 20;
+    const newHp = heroStat.hp / 10;
+    const newSta = heroStat.stam / 10;
+    const newMgc = heroStat.mgc / 10;
 
-    const newStr = heroStat.str / 20;
-    const newDef = heroStat.def / 20;
-    const newInt = heroStat.int / 20;
-    const newDex = heroStat.dex / 20;
-    const newChar = heroStat.char / 20;
+    const newStr = heroStat.str / 10;
+    const newDef = heroStat.def / 10;
+    const newInt = heroStat.int / 10;
+    const newDex = heroStat.dex / 10;
+    const newChar = heroStat.char / 10;
 
-
+    
 
     return (
         <div className='w-100 h-100'>
@@ -50,7 +63,7 @@ const HeroStats = () => {
                 <div className='col-sm-12'>
                     <h2 className='page-title'>{name}'s Status</h2>
                     <div className="page-title-desc">
-                        <p className=''>Forge your powerful warrior { }!</p>
+                        <p className=''>{vocation.name} </p>
                     </div>
                 </div>
             </div>
@@ -63,7 +76,7 @@ const HeroStats = () => {
                     </div>
                     <div className='col'>
                         <div>
-                            <h4 style={{marginBottom: '20px'}}>Attributes</h4>
+                            <h4 style={{ marginBottom: '20px' }}>Attributes </h4>
                         </div>
                         <div className='row my-2'>
                             <div className='col-sm-3 text-start'>Health</div>
@@ -77,8 +90,8 @@ const HeroStats = () => {
                         <div className='row my-2'>
                             <div className='col-sm-3 text-start'>Stamina</div>
                             <div className='col-sm-7'>
-                                <div className="progress">
-                                    <div className="progress-bar bg-success" role="progressbar" style={{ width: `${newSta}%` }} aria-valuenow={newSta} aria-valuemin='0' aria-valuemax='100'></div>
+                                <div className="progress stat-bar-bg">
+                                    <div className="progress-bar bg-success stat-bar" role="progressbar" style={{ width: `${newSta}%` }} aria-valuenow={newSta} aria-valuemin='0' aria-valuemax='100'></div>
                                 </div>
                             </div>
                             <div className='col-sm-2 text-end'>{heroStat.stam}</div>
@@ -86,63 +99,68 @@ const HeroStats = () => {
                         <div className='row my-2'>
                             <div className='col-sm-3 text-start'>Magic</div>
                             <div className='col-sm-7'>
-                                <div className="progress">
-                                    <div className="progress-bar bg-primary" role="progressbar" style={{ width: `${newMgc}%` }} aria-valuenow={newMgc} aria-valuemin='0' aria-valuemax='100'></div>
+                                <div className="progress stat-bar-bg">
+                                    <div className="progress-bar bg-primary stat-bar" role="progressbar" style={{ width: `${newMgc}%` }} aria-valuenow={newMgc} aria-valuemin='0' aria-valuemax='100'></div>
                                 </div>
                             </div>
                             <div className='col-sm-2 text-end'>{heroStat.mgc}</div>
                         </div>
-                        <div className='my-3'>
-
-                        </div>
-                        <div className='row my-2'>
-                            <div className='col-sm-3 text-start'>Strength</div>
-                            <div className='col-sm-7'>
-                                <div className="progress">
-                                    <div className="progress-bar bg-info" role="progressbar" style={{ width: `${newStr}%` }} aria-valuenow={newStr} aria-valuemin='0' aria-valuemax='100'></div>
-                                </div>
+                        <div>
+                            <h4 style={{ marginBottom: '20px', marginTop: '20px' }}></h4>
+                            <div className='row row-col-4'>
+                                
                             </div>
-                            <div className='col-sm-2 text-end'>{heroStat.str}</div>
-                        </div>
-                        <div className='row my-2'>
-                            <div className='col-sm-3 text-start'>Defense</div>
-                            <div className='col-sm-7'>
-                                <div className="progress">
-                                    <div className="progress-bar bg-info" role="progressbar" style={{ width: `${newDef}%` }} aria-valuenow={newDef} aria-valuemin='0' aria-valuemax='100'></div>
-                                </div>
-                            </div>
-                            <div className='col-sm-2 text-end'>{heroStat.def}</div>
-                        </div>
-                        <div className='row my-2'>
-                            <div className='col-sm-3 text-start'>Intelligence</div>
-                            <div className='col-sm-7'>
-                                <div className="progress">
-                                    <div className="progress-bar bg-info" role="progressbar" style={{ width: `${newInt}%` }} aria-valuenow={newInt} aria-valuemin='0' aria-valuemax='100'></div>
-                                </div>
-                            </div>
-                            <div className='col-sm-2 text-end'>{heroStat.int}</div>
-                        </div>
-                        <div className='row my-2'>
-                            <div className='col-sm-3 text-start'>Dexterity</div>
-                            <div className='col-sm-7'>
-                                <div className="progress">
-                                    <div className="progress-bar bg-info" role="progressbar" style={{ width: `${newDex}%` }} aria-valuenow={newDex} aria-valuemin='0' aria-valuemax='100'></div>
-                                </div>
-                            </div>
-                            <div className='col-sm-2 text-end'>{heroStat.dex}</div>
-                        </div>
-                        <div className='row my-2'>
-                            <div className='col-sm-3 text-start'>Charisma</div>
-                            <div className='col-sm-7'>
-                                <div className="progress">
-                                    <div className="progress-bar bg-info" role="progressbar" style={{ width: `${newChar}%` }} aria-valuenow={newChar} aria-valuemin='0' aria-valuemax='100'></div>
-                                </div>
-                            </div>
-                            <div className='col-sm-2 text-end'>{heroStat.char}</div>
                         </div>
                     </div>
                     <div className='col'>
-                        
+                        <div>
+                            <h4 style={{ marginBottom: '20px' }}>Stat Details</h4>
+                            <div className='row my-2'>
+                                <div className='col-sm-3 text-start'>Strength</div>
+                                <div className='col-sm-7'>
+                                    <div className="progress stat-bar-bg">
+                                        <div className="progress-bar bg-info stat-bar" role="progressbar" style={{ width: `${newStr}%` }} aria-valuenow={newStr} aria-valuemin='0' aria-valuemax='100'></div>
+                                    </div>
+                                </div>
+                                <div className='col-sm-2 text-end'>{heroStat.str}</div>
+                            </div>
+                            <div className='row my-2'>
+                                <div className='col-sm-3 text-start'>Defense</div>
+                                <div className='col-sm-7'>
+                                    <div className="progress stat-bar-bg">
+                                        <div className="progress-bar bg-info stat-bar" role="progressbar" style={{ width: `${newDef}%` }} aria-valuenow={newDef} aria-valuemin='0' aria-valuemax='100'></div>
+                                    </div>
+                                </div>
+                                <div className='col-sm-2 text-end'>{heroStat.def}</div>
+                            </div>
+                            <div className='row my-2'>
+                                <div className='col-sm-3 text-start'>Intelligence</div>
+                                <div className='col-sm-7'>
+                                    <div className="progress stat-bar-bg">
+                                        <div className="progress-bar bg-info stat-bar" role="progressbar" style={{ width: `${newInt}%` }} aria-valuenow={newInt} aria-valuemin='0' aria-valuemax='100'></div>
+                                    </div>
+                                </div>
+                                <div className='col-sm-2 text-end'>{heroStat.int}</div>
+                            </div>
+                            <div className='row my-2'>
+                                <div className='col-sm-3 text-start'>Dexterity</div>
+                                <div className='col-sm-7'>
+                                    <div className="progress stat-bar-bg">
+                                        <div className="progress-bar bg-info" role="progressbar stat-bar" style={{ width: `${newDex}%` }} aria-valuenow={newDex} aria-valuemin='0' aria-valuemax='100'></div>
+                                    </div>
+                                </div>
+                                <div className='col-sm-2 text-end'>{heroStat.dex}</div>
+                            </div>
+                            <div className='row my-2'>
+                                <div className='col-sm-3 text-start'>Charisma</div>
+                                <div className='col-sm-7'>
+                                    <div className="progress stat-bar-bg">
+                                        <div className="progress-bar bg-info stat-bar" role="progressbar" style={{ width: `${newChar}%` }} aria-valuenow={newChar} aria-valuemin='0' aria-valuemax='100'></div>
+                                    </div>
+                                </div>
+                                <div className='col-sm-2 text-end'>{heroStat.char}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
