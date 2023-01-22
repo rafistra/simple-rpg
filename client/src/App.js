@@ -22,7 +22,7 @@ function App() {
   }, [loginStatus])
 
   return (
-    <div>
+    <div className='page-total'>
       {
         // !loginStatus ?
         //   <LoginPage loginCbHandler={loginCbHandler}></LoginPage> :

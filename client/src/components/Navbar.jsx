@@ -1,11 +1,14 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, Link, Route, useNavigate } from 'react-router-dom';
 import { GiWoodenDoor } from "react-icons/gi";
 import '../styles/Navbar.css';
+import Login from '../pages/Login';
+
 
 const Navbar = (props) => {
     const { loginStatus, loginCbHandler } = props;
+    // const navigation = useNavigate();
 
     const loginHandler = () => {
         loginCbHandler(true);
@@ -14,7 +17,8 @@ const Navbar = (props) => {
     const logoutHandler = () => {
         localStorage.clear();
         loginCbHandler(false);
-        <Link to='/login'></Link>
+        
+        // navigation('/');
     }
 
     return (
@@ -28,10 +32,10 @@ const Navbar = (props) => {
                         loginStatus ?
                             <a
                                 className='nav-link buttonNav' href='#'
-                                onClick={() => logoutHandler()}><GiWoodenDoor/></a> :
+                                onClick={() => logoutHandler()}><GiWoodenDoor /></a> :
                             <a
                                 className='nav-link' href='#'
-                                onClick={() => loginHandler()}>Login</a> 
+                                onClick={() => loginHandler()}>Login</a>
                     }
                 </li>
             </ul>

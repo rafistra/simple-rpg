@@ -4,6 +4,7 @@ import { getClassId, getSkillById } from '../fetches/classFetch';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Stat.css'
 import { useParams } from 'react-router-dom';
+import StatSkill from '../components/StatSkill';
 
 const HeroStats = () => {
     const params = useParams();
@@ -13,6 +14,7 @@ const HeroStats = () => {
     const [stat, setStat] = useState({
         name: '',
         level: '',
+        classId : 0,
         class: {
             name: ''
         },
@@ -28,21 +30,16 @@ const HeroStats = () => {
         }
     });
 
-    const [clas, setClas] = useState({
-        name: 's',
-        level: '',
-    });
-
 
     useEffect(() => {
         const { id } = params;
         getHeroStats(+id, result => setStat(result));
-        getSkillById(+id, result => setClas(result));
     }, []);
 
     const vocation = stat.class;
 
-    const { name, level, image, heroStat } = stat;
+    const { name, level, image, heroStat, classId } = stat;
+    
     // const { nam } = clas
     // const { str } = HeroStat;
     const newHp = heroStat.hp / 10;
@@ -58,12 +55,12 @@ const HeroStats = () => {
     
 
     return (
-        <div className='w-100 h-100'>
+        <div className='w-100' style={{height: '100vh'}}>
             <div className='row page-header'>
                 <div className='col-sm-12'>
                     <h2 className='page-title'>{name}'s Status</h2>
                     <div className="page-title-desc">
-                        <p className=''>{vocation.name} </p>
+                        <p className=''>{vocation.name} hahaha</p>
                     </div>
                 </div>
             </div>
@@ -164,6 +161,7 @@ const HeroStats = () => {
                     </div>
                 </div>
             </div>
+            <StatSkill classId={classId}></StatSkill>
         </div>
     )
 

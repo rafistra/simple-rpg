@@ -24,8 +24,8 @@ const getClassId = async (id, cb) => {
             method: 'GET',
             url: URL + 'get/' + id,
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': `multipart/form-data`
+                // 'Accept': 'application/json',
+                // 'Content-Type': `multipart/form-data`
             }
         });
         // const { id, name, level } = result.data;
@@ -96,7 +96,7 @@ const getSkillById = async (id, cb) => {
     try {
         let result = await axios({
             method: 'GET',
-            url: URL + '/skill/' + id
+            url: URL + '/get/' + id
         });
         cb(result.data);
     } catch (e) {

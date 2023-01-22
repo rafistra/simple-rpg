@@ -78,7 +78,7 @@ class ClassController {
             let oldImg = await classes.findOne({ where: { id } });
 
             if (req.file) {
-                await classes.update({ name, image: req.file.filename}, { where: { id } });
+                await classes.update({ name, image: req.file.filename }, { where: { id } });
                 fs.unlink('./public/uploads/' + oldImg.image, (err) => { if (err) throw err })
             } else {
                 await classes.update({ name, image: req.file.filename }, { where: { id } });
@@ -189,13 +189,13 @@ class ClassController {
         } catch (err) {
             res.status(500).json(err);
         }
-        
+
     }
 
     static async addSkillClass(req, res) {
         try {
             const { classId, skillId } = req.body;
-            
+
             let result = await classSkills.create({
                 classId, skillId
             });

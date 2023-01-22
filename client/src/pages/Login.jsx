@@ -34,10 +34,13 @@ const Login = (props) => {
     }
 
     return (
-        <>
+        <div className='page-total'>
             <div className='login-page row'>
-                <div className='col-md-8'>
-                    ssss
+                <div className='col-md-8 d-flex justify-content-center'>
+                    <div className='w-75'>
+                        <h2 className='game-title'>Just a Simple RPG</h2>
+                        <p>The Dragon has been come. It is your choice to fight the dragon or stay to be an adventurer. You have fate to slay the dragon. You are the hope. Assamble your companion and begin the journey to vanish the threat.</p>
+                    </div>
                 </div>
                 <div className='col-md-4 form-background h-100'>
                     <div className='mb-5 text-center'>
@@ -74,7 +77,7 @@ const Login = (props) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

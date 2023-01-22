@@ -17,7 +17,7 @@ import ClassUpdate from './ClassUpdate';
 const Main = (props) => {
     const { loginStatus, loginCbHandler } = props;
     return (
-        <div>
+        <div className=''>
             <Navbar loginStatus={loginStatus} loginCbHandler={loginCbHandler}></Navbar >
             <div style={{ display: "flex", alignItems: "flex-start" }}>
                 <BrowserRouter>

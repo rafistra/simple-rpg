@@ -1,4 +1,4 @@
-# Sistem Informasi Akademik
+# Simple RPG
 
 ## Server Side
 

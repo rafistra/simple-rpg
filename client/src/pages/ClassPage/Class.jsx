@@ -8,7 +8,7 @@ import '../../styles/Util.css'
 
 const Class = () => {
   return (
-    <div className='w-100 h-100'>
+    <div className='w-100' style={{height: '100vh'}}>
       <div className='row page-header'>
         <div className='col-sm-8'>
           <h2 className='page-title'>Classes</h2>
@@ -16,7 +16,6 @@ const Class = () => {
             <p className=''>Forge your powerful warrior!</p>
           </div>
         </div>
-
         <div className='page-action col-sm-4 text-end' >
           <Link to='/classes/create' className='buttonA' style={{ textDecoration: 'none'}}>Create Custom Class</Link>
         </div>
@@ -26,7 +25,6 @@ const Class = () => {
           <ClassList />
         </div>
       </div>
-
     </div>
   )
 }

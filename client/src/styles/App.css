@@ -18,6 +18,13 @@
     display: flex;
 }
 
+
+.page-total {
+    height: 100%;
+    background-image: url('../assets/img/background.jpg');
+    background-repeat: repeat;
+}
+
 .page-header {
     padding-top: 20px;
     padding-left: 20px;
@@ -58,6 +65,12 @@
 .card-horizontal .card-body {
     margin-top: 20px;
     margin-left: 16px;
+}
+
+.game-title {
+    color: brown;
+    font-size: 40px;
+    font-weight: 700;
 }
 
 
