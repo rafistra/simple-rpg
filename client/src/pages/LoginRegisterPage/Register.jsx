@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { register } from '../fetches/heroFetch';
-import { getClasses } from '../fetches/classFetch';
+import { useNavigate } from 'react-router-dom';
+import { register } from '../../fetches/heroFetch';
+import { getClasses } from '../../fetches/classFetch';
 
 const Register = () => {
     const [classes, setClasses] = useState([])
     const [getClassTrigger, setGetClassTrigger] = useState(true);
-    const [selectedFile, setSelectedFile] = useState(null);
+    // const [selectedFile, setSelectedFile] = useState(null);
     const navigation = useNavigate();
 
     const [form, setForm] = useState({

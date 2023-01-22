@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { getSkills, getSkillById, addClass } from '../fetches/classFetch';
+import { updateClass, getClassId, getSkills } from '../../fetches/classFetch';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-const ClassCreate = () => {
+const ClassUpdate = () => {
     const [skills, setSkills] = useState([])
     const [getSkillTrigger, setGetSkillTrigger] = useState(true);
+    const params = useParams();
     const navigation = useNavigate();
+    const { id } = params;
 
     const [form, setForm] = useState({
         name: '',
@@ -14,34 +17,41 @@ const ClassCreate = () => {
         skillId2: 0,
         skillId3: 0,
         skillId4: 0,
-    })
+    });
+
+    useEffect(() => {
+        getClassId(+id, result => setForm({
+            name: result.name,
+            level: result.level,
+            image: result.image,
+        }));
+    }, [id]);
 
     useEffect(() => {
         getSkills(result => setSkills(result));
-
     }, [getSkillTrigger]);
 
     const submitHandler = () => {
         const formData = new FormData();
-        formData.append('name', form.name);
-        formData.append('image', form.image);
-        formData.append('skillId1', form.skillId1);
-        formData.append('skillId2', form.skillId2);
-        formData.append('skillId3', form.skillId3);
-        formData.append('skillId4', form.skillId4);
+        formData.append('name', form.name);      
+        formData.append('image', form.image);      
+        formData.append('skillId1', form.skillId1);      
+        formData.append('skillId2', form.skillId2);      
+        formData.append('skillId3', form.skillId3);      
+        formData.append('skillId4', form.skillId4);      
 
-        addClass(formData);
+        updateClass(+id, formData);
+        console.log(formData)
         navigation('/classes')
-        // window.location.reload(true)
-    }
+      }
 
     return (
         <div className='w-100 h-100'>
             <div className='row page-header'>
                 <div className='col-sm-12'>
-                    <h2 className='page-title'>Create Custom Class</h2>
+                    <h2 className='page-title'>Modify Class</h2>
                     <div className="page-title-desc">
-                        <p className=''>Build your playing style</p>
+                        <p className=''>Change class attributes</p>
                     </div>
                 </div>
             </div>
@@ -50,6 +60,7 @@ const ClassCreate = () => {
                     <div className='mb-3'>
                         <label>Class Name: </label>
                         <input
+                            value={form.name}
                             onChange={(e) => setForm({ ...form, name: e.target.value })}
                             type='text'
                             className='form-control'>
@@ -58,6 +69,7 @@ const ClassCreate = () => {
                     <div className='mb-3'>
                         <label>Image: </label>
                         <input
+                            // value={form.image}
                             onChange={(e) => setForm({ ...form, image: e.target.files[0] })}
                             type='file'
                             className='form-control'>
@@ -72,7 +84,7 @@ const ClassCreate = () => {
                                     className=" form-select form-select-lg mb-3"
                                     style={{ fontSize: '14px' }}
                                     aria-label=".form-select-lg example" >
-                                    <option selected>Select Skill</option>
+                                    <option value={form.skillId1} selected>Change Skill</option>
                                     {
                                         skills.map(skill => {
                                             const { id, name, image, desc } = skill
@@ -94,7 +106,7 @@ const ClassCreate = () => {
                                     className=" form-select form-select-lg mb-3"
                                     style={{ fontSize: '14px' }}
                                     aria-label=".form-select-lg example">
-                                    <option selected>Select Skill</option>
+                                    <option value={form.skillId2} selected>Change Skill</option>
                                     {
                                         skills.map(skill => {
                                             const { id, name, image, desc } = skill
@@ -111,7 +123,7 @@ const ClassCreate = () => {
                                     className=" form-select form-select-lg mb-3"
                                     style={{ fontSize: '14px' }}
                                     aria-label=".form-select-lg example">
-                                    <option selected>Select Skill</option>
+                                    <option value={form.skillId3} selected>Change Skill</option>
                                     {
                                         skills.map(skill => {
                                             const { id, name, image, desc } = skill
@@ -126,9 +138,9 @@ const ClassCreate = () => {
                                 <select
                                     onChange={(e) => setForm({ ...form, skillId4: e.target.value })}
                                     className=" form-select form-select-lg mb-3"
-                                    style={{ fontSize: '14px' }} 
+                                    style={{ fontSize: '14px' }}
                                     aria-label=".form-select-lg example">
-                                    <option selected>Select Skill</option>
+                                    <option value={form.skillId4} selected>Change Skill</option>
                                     {
                                         skills.map(skill => {
                                             const { id, name, image, desc } = skill
@@ -152,4 +164,4 @@ const ClassCreate = () => {
     )
 }
 
-export default ClassCreate
+export default ClassUpdate

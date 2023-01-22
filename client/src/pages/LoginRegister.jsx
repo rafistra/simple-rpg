@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Login from './Login'
-import Register from './Register'
+import Login from './LoginRegisterPage/Login'
+import Register from './LoginRegisterPage/Register'
 
 const LoginRegister = (props) => {
     const { loginStatus, loginCbHandler } = props;

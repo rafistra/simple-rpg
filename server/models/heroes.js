@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       heroes.hasOne(models.heroStats, {foreignKey: 'heroId'});
       heroes.belongsTo(models.classes);
       heroes.belongsTo(models.parties);
+      heroes.hasMany(models.playerCompanions);
       // define association here
     }
   }

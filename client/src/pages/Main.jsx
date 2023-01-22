@@ -1,31 +1,30 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
-import Dashboard from './Dashboard.jsx';
-import Hero from './Hero.jsx';
+import Dashboard from './PlayerPage/Dashboard.jsx';
+import Hero from './HeroPage/Hero';
 import Class from './ClassPage/Class.jsx';
-import Navbar from '../components/Navbar';
-import HeroStats from './HeroStats';
-import HeroCreate from './HeroCreate';
-import HeroUpdate from './HeroUpdate';
+import HeroStats from './HeroPage/HeroStats';
+import HeroCreate from './HeroPage/HeroCreate';
+import HeroUpdate from './HeroPage/HeroUpdate';
 import StickyBox from "react-sticky-box";
 import Party from './Party';
 import Quests from './Quests';
-import ClassCreate from './ClassCreate';
-import ClassUpdate from './ClassUpdate';
+import ClassCreate from './ClassPage/ClassCreate';
+import ClassUpdate from './ClassPage/ClassUpdate';
 
 const Main = (props) => {
     const { loginStatus, loginCbHandler } = props;
     return (
         <div className=''>
-            <Navbar loginStatus={loginStatus} loginCbHandler={loginCbHandler}></Navbar >
             <div style={{ display: "flex", alignItems: "flex-start" }}>
                 <BrowserRouter>
                     <StickyBox>
-                        <Sidebar></Sidebar>
+                        <Sidebar loginStatus={loginStatus} loginCbHandler={loginCbHandler}></Sidebar>
                     </StickyBox>
                     <Routes style={{ overflow: 'hidden' }}>
-                        <Route path='/' element={<Quests></Quests>} />
+                        <Route path='/' element={<Dashboard></Dashboard>} />
+                        <Route path='/dashboard' element={<Dashboard></Dashboard>} />
                         <Route path='heroes'>
                             <Route path='' element={<Hero></Hero>}></Route>
                             <Route path='create' element={<HeroCreate></HeroCreate>}></Route>

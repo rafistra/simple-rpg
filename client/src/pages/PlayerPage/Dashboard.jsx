@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { getHeroes, getHeroStats } from '../fetches/heroFetch';
-import { getClassId, getSkillById } from '../fetches/classFetch';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/Stat.css'
+import HeroList from '../../components/HeroList';
+import { getPlayer } from '../../fetches/heroFetch';
+import '../../styles/Dashboard.css';
 import { useParams } from 'react-router-dom';
-import StatSkill from '../components/StatSkill';
+import StatSkill from '../../components/StatSkill';
 
-const HeroStats = () => {
+const Dashboard = () => {
     const params = useParams();
     // const [class, setClass] = useState()
     // const [getClassTrigger, setGetClassTrigger] = useState(true);
 
     const [stat, setStat] = useState({
+        id: 0,
         name: '',
         level: '',
-        classId : 0,
+        classId : 1,
         class: {
             name: ''
         },
@@ -30,10 +31,8 @@ const HeroStats = () => {
         }
     });
 
-
-    useEffect(() => {
-        const { id } = params;
-        getHeroStats(+id, result => setStat(result));
+    useEffect(() => { 
+        getPlayer(result => setStat(result));
     }, []);
 
     const vocation = stat.class;
@@ -51,8 +50,7 @@ const HeroStats = () => {
     const newInt = heroStat.int / 10;
     const newDex = heroStat.dex / 10;
     const newChar = heroStat.char / 10;
-
-    
+    localStorage.setItem("playerId", stat.id);
 
     return (
         <div className='w-100' style={{height: '100vh'}}>
@@ -60,7 +58,7 @@ const HeroStats = () => {
                 <div className='col-sm-12'>
                     <h2 className='page-title'>{name}'s Status</h2>
                     <div className="page-title-desc">
-                        <p className=''>{vocation.name} hahaha</p>
+                        <p className=''>{vocation.name}</p>
                     </div>
                 </div>
             </div>
@@ -143,7 +141,7 @@ const HeroStats = () => {
                                 <div className='col-sm-3 text-start'>Dexterity</div>
                                 <div className='col-sm-7'>
                                     <div className="progress stat-bar-bg">
-                                        <div className="progress-bar bg-info" role="progressbar stat-bar" style={{ width: `${newDex}%` }} aria-valuenow={newDex} aria-valuemin='0' aria-valuemax='100'></div>
+                                        <div className="progress-bar bg-info stat-bar" role="progressbar" style={{ width: `${newDex}%` }} aria-valuenow={newDex} aria-valuemin='0' aria-valuemax='100'></div>
                                     </div>
                                 </div>
                                 <div className='col-sm-2 text-end'>{heroStat.dex}</div>
@@ -161,10 +159,9 @@ const HeroStats = () => {
                     </div>
                 </div>
             </div>
-            <StatSkill classId={classId}></StatSkill>
+            <StatSkill id={stat.classId}></StatSkill>
         </div>
     )
-
 }
 
-export default HeroStats;
+export default Dashboard

@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Link, Route, useNavigate } from 'react-router-dom';
 import { GiWoodenDoor } from "react-icons/gi";
 import '../styles/Navbar.css';
-import Login from '../pages/Login';
+import Login from '../pages/LoginRegisterPage/Login';
 
 
 const Navbar = (props) => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addHero, addHeroStats } from '../fetches/heroFetch';
-import { getClasses } from '../fetches/classFetch';
+import { addHero, addHeroStats } from '../../fetches/heroFetch';
+import { getClasses } from '../../fetches/classFetch';
 
 const HeroCreate = () => {
     const [classes, setClasses] = useState([])

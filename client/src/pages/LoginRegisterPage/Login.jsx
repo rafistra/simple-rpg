@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Link, Route, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/Login.css'
-import Register from './Register';
+import '../../styles/Login.css';
 
 const Login = (props) => {
     const { loginCbHandler } = props;
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         email: '',
         password: '',
@@ -22,7 +22,8 @@ const Login = (props) => {
             const access_token = result.data.access_token;
             localStorage.setItem("access_token", access_token);
             loginCbHandler(true);
-            // navigate('/');
+            navigate('/dashboard');
+            window.location.reload(true)
         } catch (err) {
             console.log(err);
         }

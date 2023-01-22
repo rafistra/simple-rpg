@@ -8,9 +8,6 @@ Sequelize-CLI
 Table heroes
 npx sequelize-cli model:generate --name heroes --attributes name:string,level:integer,image:string,classId:integer,partyId:integer
 
-Table parties 
-npx sequelize-cli model:generate --name parties --attributes name:string,image:string,guildId:integer
-
 table classes
 npx sequelize-cli model:generate --name classes --attributes name:string,image:string
 
@@ -25,5 +22,11 @@ npx sequelize-cli model:generate --name skills --attributes name:string,image:st
 
 table classSkils 
 npx sequelize-cli model:generate --name classSkills --attributes classId:integer,skillId:integer
+
+table playerCompanions (unused)
+npx sequelize-cli model:generate --name playerCompanions --attributes playerId:integer,heroId:integer
+
+Table parties (unused)
+npx sequelize-cli model:generate --name parties --attributes name:string,image:string,guildId:integer
 
 ```

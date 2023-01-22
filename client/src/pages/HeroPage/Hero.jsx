@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import '../styles/Util.css'
+import '../../styles/Util.css'
 import { Link } from 'react-router-dom';
 import { GiIronCross, GiMagnifyingGlass, GiBoltShield } from "react-icons/gi";
-import HeroList from '../components/HeroList';
-import { searchHero } from '../fetches/heroFetch';
+import HeroList from '../../components/HeroList';
+import { searchHero } from '../../fetches/heroFetch';
 
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
@@ -23,7 +23,7 @@ const Hero = () => {
     }
 
     return (
-        <div className='w-100 h-100'>
+        <div className='w-100 h-100' style={{minHeight: '100vh'}}>
             <div className='row page-header'>
                 <div className='col-sm-8'>
                     <h2 className='page-title'>Heroes</h2>

@@ -1,7 +1,12 @@
-const { heroes, sequelize } = require('../models');
-const { heroStats } = require('../models');
-const { classes } = require('../models');
-const { skills, classSkills } = require('../models');
+const {
+    heroes,
+    sequelize,
+    heroStats,
+    classes,
+    skills,
+    classSkills,
+    playerCompanions
+} = require('../models');
 const { encryptPwd, decryptPWd } = require('../helpers/bcrypt');
 const { tokenGenerator, tokenVerifier } = require('../helpers/jsonwebtoken');
 const Sequelize = require('sequelize');
@@ -38,6 +43,37 @@ class HeroController {
         }
     }
 
+    static async getPlayer(req, res) {
+        try {
+            const token = tokenVerifier(req.headers.access_token)
+            const email = token.email;
+
+            let result = await heroes.findOne({
+                include: [classes, heroStats],
+                where: { email }
+            });
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    static async getPlayerCompanions(req, res) {
+        try {
+            const token = tokenVerifier(req.headers.access_token)
+            const id = token.id;
+
+            let result = await playerCompanions.findAll({
+                include: [heroes],
+                where: { playerId: 66 }
+            });
+            console.log(id)
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
     static async getHeroById(req, res) {
         try {
             const id = Number(req.params.id)
@@ -45,7 +81,7 @@ class HeroController {
             let result = await heroes.findByPk(id, {
                 include: [classes, heroStats]
             });
-            
+
             res.status(200).json(result);
         } catch (err) {
             res.status(500).json(err);
@@ -138,6 +174,18 @@ class HeroController {
             const { hp, mgc, stam, str, def, int, dex, char, heroId } = req.body;
             let result = await heroStats.create({
                 hp, mgc, stam, str, def, int, dex, char, heroId
+            });
+            res.status(201).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    static async addCompanions(req, res) {
+        try {
+            const { playerId, heroId } = req.body;
+            let result = await playerCompanions.create({
+                playerId, heroId
             });
             res.status(201).json(result);
         } catch (err) {
