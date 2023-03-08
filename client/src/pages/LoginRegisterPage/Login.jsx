@@ -3,6 +3,9 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/Login.css';
+import '../../styles/Util.css';
+import Swal from 'sweetalert2';
+
 
 const Login = (props) => {
     const { loginCbHandler } = props;
@@ -25,6 +28,7 @@ const Login = (props) => {
             navigate('/dashboard');
             window.location.reload(true)
         } catch (err) {
+            Swal.fire('Login failed. Try Again!')
             console.log(err);
         }
     }
@@ -41,6 +45,9 @@ const Login = (props) => {
                     <div className='w-75'>
                         <h2 className='game-title'>Just a Simple RPG</h2>
                         <p>The Dragon has been come. It is your choice to fight the dragon or stay to be an adventurer. You have fate to slay the dragon. You are the hope. Assamble your companion and begin the journey to vanish the threat.</p>
+                        <div className=''>
+                            <Link to='/register' className='btn buttonA' style={{marginLeft: '0px'}}>Create an Adventurer</Link>
+                        </div>
                     </div>
                 </div>
                 <div className='col-md-4 form-background h-100'>
@@ -68,12 +75,9 @@ const Login = (props) => {
                         </div>
 
                         <div className='mb-3 loginBtn'>
-                            <button onClick={() => submitHandler()} className='btn btn-success'>
+                            <button onClick={() => submitHandler()} className='btn buttonA'>
                                 LOGIN
                             </button>
-                        </div>
-                        <div>
-                            <Link to='/register'>Registration</Link>
                         </div>
                     </div>
                 </div>

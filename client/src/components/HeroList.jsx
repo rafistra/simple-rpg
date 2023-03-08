@@ -23,7 +23,7 @@ const HeroList = () => {
         });
         getHeroes(result => {
             setHeroes(result);
-        })
+        });
     }
     return (
         <div className="row row-cols-6" style={{marginBottom: '0px'}}>
@@ -51,7 +51,7 @@ const HeroList = () => {
                                                     <li><Link class="dropdown-item"
                                                         onClick={() => {
                                                             deleteHandler(+id)
-                                                            window.location.reload(true)
+                                                            // window.location.reload(true)
                                                         }}><BsFillTrashFill />   Kill</Link></li>
                                                 </ul>
                                             </Link>

@@ -221,7 +221,8 @@ const HeroCreate = () => {
                     <div className='mb-3'>
                         <button
                             onClick={() => submitHandler()}
-                            className='btn btn-block btn-primary'>Submit</button>
+                            className='btn btn-block buttonA'
+                            style={{marginLeft: '0px'}}>Submit</button>
                     </div>
                 </div>
             </div>

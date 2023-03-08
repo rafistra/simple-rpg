@@ -6,6 +6,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import { GiBrutalHelm, GiClassicalKnowledge, GiArcTriomphe, GiGuards, GiAbstract076, GiWoodenDoor } from "react-icons/gi";
 import StickyBox from "react-sticky-box";
+import Swal from 'sweetalert2';
 
 const Sidebar = ({ children }, props) => {
     const { loginStatus, loginCbHandler } = props;
@@ -78,7 +79,8 @@ const Sidebar = ({ children }, props) => {
                                 <div className="link_text">Exit</div>
                             </a>
                     } */}
-                    <NavLink to='/' className='link' onClick={() => logoutHandler()}>
+                    <NavLink to='/' className='link'
+                    onClick={() => logoutHandler()}>
                         <div className="icon"><GiWoodenDoor /></div>
                         <div className="link_text">Exit</div>
                     </NavLink>

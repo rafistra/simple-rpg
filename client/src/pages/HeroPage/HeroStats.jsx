@@ -14,9 +14,10 @@ const HeroStats = () => {
     const [stat, setStat] = useState({
         name: '',
         level: '',
-        classId : 1,
+        classId: 1,
         class: {
-            name: ''
+            name: '',
+            image: '',
         },
         heroStat: {
             hp: 0,
@@ -30,17 +31,17 @@ const HeroStats = () => {
         }
     });
 
-    const  id  = params.id;
+    const id = params.id;
 
     useEffect(() => {
-        
+
         getHeroStats(+id, result => setStat(result));
     }, [stat]);
 
     const vocation = stat.class;
 
     const { name, level, image, heroStat, classId } = stat;
-    
+
     // const { nam } = clas
     // const { str } = HeroStat;
     const newHp = heroStat.hp / 10;
@@ -54,7 +55,7 @@ const HeroStats = () => {
     const newChar = heroStat.char / 10;
 
     return (
-        <div className='w-100' style={{height: '100vh'}}>
+        <div className='w-100' style={{ height: '100vh' }}>
             <div className='row page-header'>
                 <div className='col-sm-12'>
                     <h2 className='page-title'>{name}'s Status</h2>
@@ -104,8 +105,14 @@ const HeroStats = () => {
                         <div>
                             <h4 style={{ marginBottom: '20px', marginTop: '20px' }}></h4>
                             <div className='row row-col-4'>
-                                
                             </div>
+                        </div>
+                        <div>
+                            <h4 style={{ marginBottom: '20px' }}>Class </h4>
+                        </div>
+                        <div className='row'>
+                            <img src={'http://localhost:3000/static/uploads/' + vocation.image} alt="" style={{ width: '80px' }} />
+                            <div><p>{vocation.name}</p></div>
                         </div>
                     </div>
                     <div className='col'>

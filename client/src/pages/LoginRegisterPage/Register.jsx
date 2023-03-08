@@ -252,14 +252,11 @@ const Register = () => {
                             </input>
                         </div>
                         <div>
-                            <div className='mb-3 d-flex justify-content-left'>
-                                <button
-                                    className='btn btn-block btn-primary'>Cancel</button>
-                            </div>
                             <div className='mb-3'>
                                 <button
                                     onClick={() => submitHandler()}
-                                    className='btn btn-block btn-primary'>Submit</button>
+                                    className='btn buttonA'
+                                    style={{marginLeft: '0px'}}>Submit</button>
                             </div>
                         </div>
                     </div>
